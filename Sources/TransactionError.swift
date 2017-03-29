@@ -15,7 +15,7 @@ public enum TransactionError : Error {
     case transactionIsNotActive
 
     /// Trying to commit a transaction while one of its transactables is in inconsistent state.
-    case uncommittable
+    case uncommittableTransaction
 
     /// Trying to commit/rollback with a wrong transaction descriptor.
     case wrongTransactionDescriptor

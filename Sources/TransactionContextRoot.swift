@@ -46,7 +46,7 @@ final class TransactionContextRoot : TransactionContext {
         }
 
         guard isCommittable() else {
-            throw TransactionError.uncommittable
+            throw TransactionError.uncommittableTransaction
         }
 
         propagateTransactionCommit()

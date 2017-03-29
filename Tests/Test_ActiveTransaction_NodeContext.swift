@@ -39,7 +39,7 @@ class Test_ActiveTransaction_NodeContext : Test_ActiveTransaction {
             guard let error = $0 as? TransactionError else {
                 XCTFail("Must throw TransactionError, but thrown \(type(of: $0)) instead"); return
             }
-            XCTAssertEqual(error, TransactionError.uncommittable)
+            XCTAssertEqual(error, TransactionError.uncommittableTransaction)
         }
     }
 
@@ -76,7 +76,7 @@ class Test_ActiveTransaction_NodeContext : Test_ActiveTransaction {
             guard let error = $0 as? TransactionError else {
                 XCTFail("Must throw TransactionError, but thrown \(type(of: $0)) instead"); return
             }
-            XCTAssertEqual(error, TransactionError.uncommittable)
+            XCTAssertEqual(error, TransactionError.uncommittableTransaction)
         }
     }
 
