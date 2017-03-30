@@ -1,6 +1,6 @@
 # Umbrella workspace and Playgrounds
 
-Transactions.xcworkspace/
+*.xcworkspace/
 Playgrounds/
 
 # Build generated
@@ -53,6 +53,4 @@ Carthage/Build
 
 # Jazzy
 
-docs/
-*.docset
-*.tgz
+docs/docsets/
