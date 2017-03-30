@@ -26,9 +26,9 @@ class Test_ActiveTransaction: XCTestCase {
         bookC = Book(library: library, name: "Marketing")
         bookC = nil
 
-        noncurrentTransaction = try! library.transactionContext.beginTransaction()
-        try! library.transactionContext.rollbackTransaction()
-        currentTransaction = try! library.transactionContext.beginTransaction()
+        noncurrentTransaction = try! library.beginTransaction()
+        try! library.rollbackTransaction()
+        currentTransaction = try! library.beginTransaction()
 
         library.resetCounts()
         bookA.resetCounts()
@@ -68,9 +68,9 @@ class Test_ActiveTransaction: XCTestCase {
     }
 
     final func test_InitialState_ContextsAreActive() {
-        XCTAssertTrue(library.transactionContext.isActive)
-        XCTAssertTrue(bookA.transactionContext.isActive)
-        XCTAssertTrue(bookB.transactionContext.isActive)
+        XCTAssertTrue(library.transactionIsActive)
+        XCTAssertTrue(bookA.transactionIsActive)
+        XCTAssertTrue(bookB.transactionIsActive)
     }
 
     final func test_InitialState_ContextTransactionsAreNotNil() {

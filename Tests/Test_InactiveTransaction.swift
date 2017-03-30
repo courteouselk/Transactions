@@ -55,9 +55,9 @@ class Test_InactiveTransaction : XCTestCase {
     }
 
     final func test_InitialState_ContextsAreInactive() {
-        XCTAssertFalse(library.transactionContext.isActive)
-        XCTAssertFalse(bookA.transactionContext.isActive)
-        XCTAssertFalse(bookB.transactionContext.isActive)
+        XCTAssertFalse(library.transactionIsActive)
+        XCTAssertFalse(bookA.transactionIsActive)
+        XCTAssertFalse(bookB.transactionIsActive)
     }
 
     final func test_InitialState_ContextTransactionsAreNil() {

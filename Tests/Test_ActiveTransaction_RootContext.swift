@@ -14,7 +14,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     // MARK: - Begin transaction
 
     func test_BeginTransaction_Throws() {
-        XCTAssertThrowsError(try self.library.transactionContext.beginTransaction()) {
+        XCTAssertThrowsError(try self.library.beginTransaction()) {
             guard let error = $0 as? TransactionError else {
                 XCTFail("Must throw TransactionError, but thrown \(type(of: $0)) instead"); return
             }
@@ -26,7 +26,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
 
     func test_CommitTransaction_WithWildcardDescriptor_DoesNotThrow() {
         do {
-            try library.transactionContext.commitTransaction()
+            try library.commitTransaction()
         } catch {
             XCTFail("Should not throw, but thrown \(error) instead")
         }
@@ -35,7 +35,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     func test_CommitTransaction_WithWildcardDescriptor_OnNoncommittable_Throws() {
         bookA.setCommittable(false)
 
-        XCTAssertThrowsError(try self.library.transactionContext.commitTransaction()) {
+        XCTAssertThrowsError(try self.library.commitTransaction()) {
             guard let error = $0 as? TransactionError else {
                 XCTFail("Must throw TransactionError, but thrown \(type(of: $0)) instead"); return
             }
@@ -46,7 +46,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     func test_CommitTransaction_WithWildcardDescriptor_OnNoncommittable_DoesNotTriggerTransactable() {
         bookB.setCommittable(false)
 
-        do { try library.transactionContext.commitTransaction(noncurrentTransaction) } catch { }
+        do { try library.commitTransaction(noncurrentTransaction) } catch { }
 
         XCTAssertEqual(library.beginCount, 0)
         XCTAssertEqual(bookA.beginCount, 0)
@@ -63,7 +63,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
 
     func test_CommitTransaction_WithCurrentDescriptor_DoesNotThrow() {
         do {
-            try library.transactionContext.commitTransaction(currentTransaction)
+            try library.commitTransaction(currentTransaction)
         } catch {
             XCTFail("Should not throw, but thrown \(error) instead")
         }
@@ -72,7 +72,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     func test_CommitTransaction_WithCurrentDescriptor_OnNoncommittable_Throws() {
         bookA.setCommittable(false)
 
-        XCTAssertThrowsError(try self.library.transactionContext.commitTransaction(currentTransaction)) {
+        XCTAssertThrowsError(try self.library.commitTransaction(currentTransaction)) {
             guard let error = $0 as? TransactionError else {
                 XCTFail("Must throw TransactionError, but thrown \(type(of: $0)) instead"); return
             }
@@ -83,7 +83,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     func test_CommitTransaction_WithCurrentDescriptor_OnNoncommittable_DoesNotTriggerTransactable() {
         bookB.setCommittable(false)
 
-        do { try library.transactionContext.commitTransaction(currentTransaction) } catch { }
+        do { try library.commitTransaction(currentTransaction) } catch { }
 
         XCTAssertEqual(library.beginCount, 0)
         XCTAssertEqual(bookA.beginCount, 0)
@@ -99,7 +99,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     }
 
     func test_CommitTransaction_WithNoncurrentDescriptor_Throws() {
-        XCTAssertThrowsError(try self.library.transactionContext.commitTransaction(noncurrentTransaction)) {
+        XCTAssertThrowsError(try self.library.commitTransaction(noncurrentTransaction)) {
             guard let error = $0 as? TransactionError else {
                 XCTFail("Must throw TransactionError, but thrown \(type(of: $0)) instead"); return
             }
@@ -108,7 +108,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     }
 
     func test_CommitTransaction_WithNoncurrentDescriptor_DoesNotTriggerTransactable() {
-        do { try library.transactionContext.commitTransaction(noncurrentTransaction) } catch { }
+        do { try library.commitTransaction(noncurrentTransaction) } catch { }
 
         XCTAssertEqual(library.beginCount, 0)
         XCTAssertEqual(bookA.beginCount, 0)
@@ -126,15 +126,15 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     // MARK: -
 
     func test_CommitTransaction_WithWildcardDescriptor_SetsContextStateInactive() {
-        try! library.transactionContext.commitTransaction()
+        try! library.commitTransaction()
 
-        XCTAssertFalse(library.transactionContext.isActive)
-        XCTAssertFalse(bookA.transactionContext.isActive)
-        XCTAssertFalse(bookB.transactionContext.isActive)
+        XCTAssertFalse(library.transactionIsActive)
+        XCTAssertFalse(bookA.transactionIsActive)
+        XCTAssertFalse(bookB.transactionIsActive)
     }
 
     func test_CommitTransaction_WithWildcardDescriptor_SetsContextTransactionNil() {
-        try! library.transactionContext.commitTransaction()
+        try! library.commitTransaction()
 
         XCTAssertNil(library.transactionContext.transaction)
         XCTAssertNil(bookA.transactionContext.transaction)
@@ -142,7 +142,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     }
     
     func test_CommitTransaction_WithWildcardDescriptor_TriggersTransactablesOnCommitOnly() {
-        try! library.transactionContext.commitTransaction()
+        try! library.commitTransaction()
 
         XCTAssertEqual(library.beginCount, 0)
         XCTAssertEqual(bookA.beginCount, 0)
@@ -160,15 +160,15 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     // MARK: -
 
     func test_CommitTransaction_WithCurrentDescriptor_SetsContextStateInactive() {
-        try! library.transactionContext.commitTransaction(currentTransaction)
+        try! library.commitTransaction(currentTransaction)
 
-        XCTAssertFalse(library.transactionContext.isActive)
-        XCTAssertFalse(bookA.transactionContext.isActive)
-        XCTAssertFalse(bookB.transactionContext.isActive)
+        XCTAssertFalse(library.transactionIsActive)
+        XCTAssertFalse(bookA.transactionIsActive)
+        XCTAssertFalse(bookB.transactionIsActive)
     }
 
     func test_CommitTransaction_WithCurrentDescriptor_SetsContextTransactionNil() {
-        try! library.transactionContext.commitTransaction(currentTransaction)
+        try! library.commitTransaction(currentTransaction)
 
         XCTAssertNil(library.transactionContext.transaction)
         XCTAssertNil(bookA.transactionContext.transaction)
@@ -176,7 +176,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     }
 
     func test_CommitTransaction_WithCurrentDescriptor_TriggersTransactablesOnCommitOnly() {
-        try! library.transactionContext.commitTransaction(currentTransaction)
+        try! library.commitTransaction(currentTransaction)
 
         XCTAssertEqual(library.beginCount, 0)
         XCTAssertEqual(bookA.beginCount, 0)
@@ -195,7 +195,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
 
     func test_RollbackTransaction_WithWildcardDescriptor_DoesNotThrow() {
         do {
-            try library.transactionContext.rollbackTransaction()
+            try library.rollbackTransaction()
         } catch {
             XCTFail("Should not throw, but thrown \(error) instead")
         }
@@ -203,14 +203,14 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
 
     func test_RollbackTransaction_WithCurrentDescriptor_DoesNotThrow() {
         do {
-            try library.transactionContext.rollbackTransaction(currentTransaction)
+            try library.rollbackTransaction(currentTransaction)
         } catch {
             XCTFail("Should not throw, but thrown \(error) instead")
         }
     }
     
     func test_RollbackTransaction_WithNoncurrentDescriptor_Throws() {
-        XCTAssertThrowsError(try self.library.transactionContext.rollbackTransaction(noncurrentTransaction)) {
+        XCTAssertThrowsError(try self.library.rollbackTransaction(noncurrentTransaction)) {
             guard let error = $0 as? TransactionError else {
                 XCTFail("Must throw TransactionError, but thrown \(type(of: $0)) instead"); return
             }
@@ -219,7 +219,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     }
 
     func test_RollbackTransaction_WithNoncurrentDescriptor_DoesNotTriggerTransactable() {
-        do { try library.transactionContext.rollbackTransaction(noncurrentTransaction) } catch { }
+        do { try library.rollbackTransaction(noncurrentTransaction) } catch { }
 
         XCTAssertEqual(library.beginCount, 0)
         XCTAssertEqual(bookA.beginCount, 0)
@@ -237,15 +237,15 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     // MARK: -
 
     func test_RollbackTransaction_WithWildcardDescriptor_SetsContextStateInactive() {
-        try! library.transactionContext.rollbackTransaction()
+        try! library.rollbackTransaction()
 
-        XCTAssertFalse(library.transactionContext.isActive)
-        XCTAssertFalse(bookA.transactionContext.isActive)
-        XCTAssertFalse(bookB.transactionContext.isActive)
+        XCTAssertFalse(library.transactionIsActive)
+        XCTAssertFalse(bookA.transactionIsActive)
+        XCTAssertFalse(bookB.transactionIsActive)
     }
 
     func test_RollbackTransaction_WithWildcardDescriptor_SetsContextTransactionNil() {
-        try! library.transactionContext.rollbackTransaction()
+        try! library.rollbackTransaction()
 
         XCTAssertNil(library.transactionContext.transaction)
         XCTAssertNil(bookA.transactionContext.transaction)
@@ -253,7 +253,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     }
     
     func test_RollbackTransaction_WithWildcardDescriptor_TriggersTransactablesOnRollbackOnly() {
-        try! library.transactionContext.rollbackTransaction()
+        try! library.rollbackTransaction()
 
         XCTAssertEqual(library.beginCount, 0)
         XCTAssertEqual(bookA.beginCount, 0)
@@ -271,15 +271,15 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     // MARK: -
 
     func test_RollbackTransaction_WithCurrentDescriptor_SetsContextStateInactive() {
-        try! library.transactionContext.rollbackTransaction(currentTransaction)
+        try! library.rollbackTransaction(currentTransaction)
 
-        XCTAssertFalse(library.transactionContext.isActive)
-        XCTAssertFalse(bookA.transactionContext.isActive)
-        XCTAssertFalse(bookB.transactionContext.isActive)
+        XCTAssertFalse(library.transactionIsActive)
+        XCTAssertFalse(bookA.transactionIsActive)
+        XCTAssertFalse(bookB.transactionIsActive)
     }
 
     func test_RollbackTransaction_WithCurrentDescriptor_SetsContextTransactionNil() {
-        try! library.transactionContext.rollbackTransaction(currentTransaction)
+        try! library.rollbackTransaction(currentTransaction)
 
         XCTAssertNil(library.transactionContext.transaction)
         XCTAssertNil(bookA.transactionContext.transaction)
@@ -287,7 +287,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     }
 
     func test_RollbackTransaction_WithCurrentDescriptor_TriggersTransactablesOnRollbackOnly() {
-        try! library.transactionContext.rollbackTransaction(currentTransaction)
+        try! library.rollbackTransaction(currentTransaction)
 
         XCTAssertEqual(library.beginCount, 0)
         XCTAssertEqual(bookA.beginCount, 0)

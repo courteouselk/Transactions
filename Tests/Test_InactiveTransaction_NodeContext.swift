@@ -15,22 +15,22 @@ class Test_InactiveTransaction_NodeContext : Test_InactiveTransaction {
 
     func test_BeginTransaction_DoesNotThrow() {
         do {
-            try bookA.transactionContext.beginTransaction()
+            try bookA.beginTransaction()
         } catch {
             XCTFail("Should not throw, but thrown \(error) instead")
         }
     }
 
     func test_BeginTransaction_SetsContextStateActive() {
-        try! bookB.transactionContext.beginTransaction()
+        try! bookB.beginTransaction()
 
-        XCTAssertTrue(library.transactionContext.isActive)
-        XCTAssertTrue(bookA.transactionContext.isActive)
-        XCTAssertTrue(bookB.transactionContext.isActive)
+        XCTAssertTrue(library.transactionIsActive)
+        XCTAssertTrue(bookA.transactionIsActive)
+        XCTAssertTrue(bookB.transactionIsActive)
     }
 
     func test_BeginTransaction_SetsContextTransactionConsistently() {
-        let transaction = try! bookB.transactionContext.beginTransaction()
+        let transaction = try! bookB.beginTransaction()
 
         XCTAssertEqual(library.transactionContext.transaction, transaction)
         XCTAssertEqual(bookA.transactionContext.transaction, transaction)
@@ -38,7 +38,7 @@ class Test_InactiveTransaction_NodeContext : Test_InactiveTransaction {
     }
 
     func test_BeginTransaction_TriggersTransactablesOnBeginOnly() {
-        try! bookA.transactionContext.beginTransaction()
+        try! bookA.beginTransaction()
 
         XCTAssertEqual(library.beginCount, 1)
         XCTAssertEqual(bookA.beginCount, 1)
@@ -56,7 +56,7 @@ class Test_InactiveTransaction_NodeContext : Test_InactiveTransaction {
     // MARK: - Commit transaction
 
     func test_CommitTransaction_Throws() {
-        XCTAssertThrowsError(try self.bookA.transactionContext.commitTransaction()) {
+        XCTAssertThrowsError(try self.bookA.commitTransaction()) {
             guard let error = $0 as? TransactionError else {
                 XCTFail("Must throw TransactionError, but thrown \(type(of: $0)) instead"); return
             }
@@ -65,7 +65,7 @@ class Test_InactiveTransaction_NodeContext : Test_InactiveTransaction {
     }
 
     func test_CommitTransaction_DoesNotTriggerTransactable() {
-        do { try bookB.transactionContext.commitTransaction() } catch { }
+        do { try bookB.commitTransaction() } catch { }
 
         XCTAssertEqual(library.beginCount, 0)
         XCTAssertEqual(bookA.beginCount, 0)
@@ -83,7 +83,7 @@ class Test_InactiveTransaction_NodeContext : Test_InactiveTransaction {
     // MARK: - Rollback transaction
 
     func test_RollbackTransaction_Throws() {
-        XCTAssertThrowsError(try self.bookA.transactionContext.rollbackTransaction()) {
+        XCTAssertThrowsError(try self.bookA.rollbackTransaction()) {
             guard let error = $0 as? TransactionError else {
                 XCTFail("Must throw TransactionError, but thrown \(type(of: $0)) instead"); return
             }
@@ -92,7 +92,7 @@ class Test_InactiveTransaction_NodeContext : Test_InactiveTransaction {
     }
 
     func test_RollbackTransaction_DoesNotTriggerTransactable() {
-        do { try bookB.transactionContext.rollbackTransaction() } catch { }
+        do { try bookB.rollbackTransaction() } catch { }
 
         XCTAssertEqual(library.beginCount, 0)
         XCTAssertEqual(bookA.beginCount, 0)
