@@ -14,6 +14,8 @@
 
 public protocol Transactable : AnyObject {
 
+    // MARK: - Protocol requirements
+
     /// Transaction context owned by a transactable.
 
     var transactionContext: TransactionContext { get }
@@ -21,8 +23,6 @@ public protocol Transactable : AnyObject {
     /// Indicates whether a transactable is in committable (i.e. consistent) state.
 
     func isCommittable() -> Bool
-
-    // MARK: - Transaction management
 
     /// Transaction begin handler.
     /// 

@@ -12,9 +12,13 @@ import Foundation
 
 public struct Transaction : Equatable {
 
+    // MARK: - Static members
+
     /// Wildcard transaction descriptor.
 
     public static let any = Transaction(id: UUID.zero)
+
+    // MARK: - Instance members
 
     /// Unique transaction id.
 

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TransactionContext Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/TransactionContext" class="dashAnchor"></a>
+    <a title="TransactionContext Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">Transactions Docs</a></p>
+        <p class="header-right"><a href="https://github.com/courteouselk/Transactions"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">Transactions Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        TransactionContext Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/TransactionContext.html">TransactionContext</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/TransactionError.html">TransactionError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Transactable.html">Transactable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Transaction.html">Transaction</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>TransactionContext</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">TransactionContext</span></code></pre>
+
+                </div>
+              </div>
+            <p>Helper class for transaction context management.</p>
+
+<p>Should be owned by each individual <code><a href="../Protocols/Transactable.html">Transactable</a></code>.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Transaction%20status"></a>
+                <a name="//apple_ref/swift/Section/Transaction status" class="dashAnchor"></a>
+                <a href="#/Transaction%20status">
+                  <h3 class="section-name">Transaction status</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC12Transactions18TransactionContext11transactionGSqVS_11Transaction_"></a>
+                    <a name="//apple_ref/swift/Property/transaction" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC12Transactions18TransactionContext11transactionGSqVS_11Transaction_">transaction</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Currently active transaction.</p>
+
+<p>If no transaction is active the value is <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC12Transactions18TransactionContext8isActiveSb"></a>
+                    <a name="//apple_ref/swift/Property/isActive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC12Transactions18TransactionContext8isActiveSb">isActive</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates whether the transaction is currently active.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="k">var</span> <span class="nv">isActive</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initialization"></a>
+                <a name="//apple_ref/swift/Section/Initialization" class="dashAnchor"></a>
+                <a href="#/Initialization">
+                  <h3 class="section-name">Initialization</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC12Transactions18TransactionContext10createRootFT5ownerPS_12Transactable__S0_"></a>
+                    <a name="//apple_ref/swift/Method/createRoot(owner:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC12Transactions18TransactionContext10createRootFT5ownerPS_12Transactable__S0_">createRoot(owner:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates transaction-context root.</p>
+
+<p>The root context is used to govern the whole context tree.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">createRoot</span><span class="p">(</span><span class="nv">owner</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Transactable.html">Transactable</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">TransactionContext</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC12Transactions18TransactionContext10createNodeFT5ownerPS_12Transactable_6parentPS1___S0_"></a>
+                    <a name="//apple_ref/swift/Method/createNode(owner:parent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC12Transactions18TransactionContext10createNodeFT5ownerPS_12Transactable_6parentPS1___S0_">createNode(owner:parent:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates transaction-context node.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">createNode</span><span class="p">(</span><span class="nv">owner</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Transactable.html">Transactable</a></span><span class="p">,</span> <span class="nv">parent</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Transactable.html">Transactable</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">TransactionContext</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Transaction%20management"></a>
+                <a name="//apple_ref/swift/Section/Transaction management" class="dashAnchor"></a>
+                <a href="#/Transaction%20management">
+                  <h3 class="section-name">Transaction management</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC12Transactions18TransactionContext16beginTransactionFzT_VS_11Transaction"></a>
+                    <a name="//apple_ref/swift/Method/beginTransaction()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC12Transactions18TransactionContext16beginTransactionFzT_VS_11Transaction">beginTransaction()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Requests the transaction start.</p>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>In the case of an exception an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> is thrown.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@discardableResult</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">beginTransaction</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The descriptor for a newly started transaction.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC12Transactions18TransactionContext17commitTransactionFzVS_11TransactionT_"></a>
+                    <a name="//apple_ref/swift/Method/commitTransaction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC12Transactions18TransactionContext17commitTransactionFzVS_11TransactionT_">commitTransaction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Requests the transaction commit.</p>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>In the case of an exception an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> is thrown.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">commitTransaction</span><span class="p">(</span><span class="n">_</span> <span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="o">.</span><span class="n">any</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transaction</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The descriptor of the transaction to commit.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC12Transactions18TransactionContext19rollbackTransactionFzVS_11TransactionT_"></a>
+                    <a name="//apple_ref/swift/Method/rollbackTransaction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC12Transactions18TransactionContext19rollbackTransactionFzVS_11TransactionT_">rollbackTransaction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Requests the transaction rollback.</p>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>In the case of an exception an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> is thrown.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">rollbackTransaction</span><span class="p">(</span><span class="n">_</span> <span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="o">.</span><span class="n">any</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transaction</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The descriptor of the transaction to rollback.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">Anton Bronnikov</a>. All rights reserved. (Last updated: 2017-03-30)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.5</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

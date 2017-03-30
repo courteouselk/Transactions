@@ -6,9 +6,13 @@
 //  Copyright © 2017 Anton Bronnikov. All rights reserved.
 //
 
+/// Helper class for transaction context management.
+///
+/// Should be owned by each individual `Transactable`.
+
 public class TransactionContext {
 
-    // MARK: - Transaction
+    // MARK: - Transaction status
 
     /// Currently active transaction.
     ///
@@ -40,13 +44,13 @@ public class TransactionContext {
 
     // MARK: - Initialization
 
-    /// Creates transaction-context root.
-    ///
-    /// The root context is used to govern the whole context tree.
-
     init(owner: Transactable) {
         self.owner = owner
     }
+
+    /// Creates transaction-context root.
+    ///
+    /// The root context is used to govern the whole context tree.
 
     final public class func createRoot(owner: Transactable) -> TransactionContext {
         return TransactionContextRoot(owner: owner)

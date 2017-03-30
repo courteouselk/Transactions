@@ -6,18 +6,20 @@
 //  Copyright © 2017 Anton Bronnikov. All rights reserved.
 //
 
+/// Transaction management related error.
+
 public enum TransactionError : Error {
 
-    /// Trying to begin a transaction while the previous one is still active.
+    /// Failed to begin a transaction because another transaction is still active.
     case anotherTransactionIsStillActive
 
-    /// Tryting to commit/rollback a transaction while it was not began yet.
+    /// Failed to commit or rollback a transaction because no transaction was actually running.
     case transactionIsNotActive
 
-    /// Trying to commit a transaction while one of its transactables is in inconsistent state.
+    /// Failed to commit a transaction because some transactable in its context reported inconsistency.
     case uncommittableTransaction
 
-    /// Trying to commit/rollback with a wrong transaction descriptor.
+    /// Trying to commit/rollback a transaction with a wrong transaction descriptor.
     case wrongTransactionDescriptor
 
 }

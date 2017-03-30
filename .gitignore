@@ -50,3 +50,7 @@ Carthage/Build
 # macOS
 
 .DS_Store
+
+# Jazzy
+
+/Documentation/docsets
