@@ -53,4 +53,4 @@ Carthage/Build
 
 # Jazzy
 
-/Documentation/docsets
+*.docset

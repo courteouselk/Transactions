@@ -2,6 +2,6 @@ clean: true
 module: Transactions
 github_url: https://github.com/courteouselk/Transactions
 author: Anton Bronnikov
-output: Documentation
+output: docs
 hide_documentation_coverage: true
 disable_search: true
