@@ -15,6 +15,9 @@ public struct Transaction : Equatable {
     // MARK: - Static members
 
     /// Wildcard transaction descriptor.
+    ///
+    /// Passed as a default parameter to `.commitTransaction(_)` and `.rollbackTransaction(_)`
+    /// methods.
 
     public static let any = Transaction(id: UUID.zero)
 

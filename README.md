@@ -25,19 +25,21 @@ class Library : Transactable {
         _transactionContext = TransactionContext.createRoot(owner: self)
     }
 
-    func isCommittable() -> Bool {
-        return true // Validate the staged changes
-    }
-
     func onBegin(transaction: Transaction) {
         // Prepare for new transaction    
     }
 
-    public func onCommit(transaction: Transaction) {
+    func hasCommittabilityError() -> Error? {
+        // Verify the staged changes and return `nil` if they are Ok to commit, 
+        // otherwise return the error describing the problem
+        return nil
+    }
+
+    func onCommit(transaction: Transaction) {
         // Incorporate the staged changes into object's actual state
     }
 
-    public func onRollback(transaction: Transaction) {
+    func onRollback(transaction: Transaction) {
         // Discard staged changes
     }
     
@@ -67,19 +69,21 @@ class Book : Transactable {
         _transactionContext = TransactionContext.createNode(owner: self, parent: library)
     }
 
-    func isCommittable() -> Bool {
-        return true // Validate the staged changes
-    }
-
     func onBegin(transaction: Transaction) {
         // Prepare for new transaction    
     }
 
-    public func onCommit(transaction: Transaction) {
+    func hasCommittabilityError() -> Error? {
+        // Verify the staged changes and return `nil` if they are Ok to commit, 
+        // otherwise return the error describing the problem
+        return nil
+    }
+
+    func onCommit(transaction: Transaction) {
         // Incorporate the staged changes into object's actual state
     }
 
-    public func onRollback(transaction: Transaction) {
+    func onRollback(transaction: Transaction) {
         // Discard staged changes
     }
 

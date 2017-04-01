@@ -14,7 +14,7 @@ final class Library : Transactable, CustomStringConvertible {
 
     private var _transactionContext: TransactionContext? = nil
 
-    private var _isCommittable = true
+    private var _committabilityError: Error? = nil
 
     var transactionContext: TransactionContext {
         return _transactionContext!
@@ -34,8 +34,8 @@ final class Library : Transactable, CustomStringConvertible {
         _transactionContext = TransactionContext.createRoot(owner: self)
     }
 
-    func isCommittable() -> Bool {
-        return _isCommittable
+    func hasCommittabilityError() -> Error? {
+        return _committabilityError
     }
 
     func onBegin(transaction: Transaction) {
@@ -56,8 +56,8 @@ final class Library : Transactable, CustomStringConvertible {
         rollbackCount = 0
     }
 
-    func setCommittable(_ isCommittable: Bool) {
-        _isCommittable = isCommittable
+    func setCommittabilityError(_ error: Error) {
+        _committabilityError = error
     }
 
 }

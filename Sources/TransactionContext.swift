@@ -8,11 +8,25 @@
 
 /// Helper class for transaction context management.
 ///
-/// Should be owned by each individual `Transactable`.
+/// An instanse of `TransactionContext` should be owned by each individual `Transactable`.  There 
+/// are two kind of transaction contexts, root and node.  The root instance stands at the root of
+/// the contexts tree structure and is typically owned by the top-level container of the
+/// transactables hierarchy.  All other transactables own a context node that can have one parent 
+/// node and multiple child nodes.
+///
+/// Any transaction status change (begin/commit/rollback) requested on a context node is dispatched 
+/// to the root of the tree, from where the requested action is propagated throughout the whole 
+/// hierarchy of contexts.
 
 public class TransactionContext {
 
-    // MARK: - Transaction status
+    // MARK: - Transaction state
+
+    /// Indicates whether the transaction is currently active.
+
+    final public var isActive: Bool {
+        return transaction != nil
+    }
 
     /// Currently active transaction.
     ///
@@ -22,25 +36,15 @@ public class TransactionContext {
         fatalError()
     }
 
-    /// Indicates whether the transaction is currently active.
+    // MARK: -
 
-    final public var isActive: Bool {
-        return transaction != nil
-    }
-    
-    // MARK: - Context
+    unowned let owner: Transactable
 
-    var root: TransactionContextRoot {
-        fatalError()
-    }
+    var root: TransactionContextRoot { fatalError() }
 
     typealias WrappedContextNode = WeakWrapper<TransactionContextNode>
 
     private var children: Set<WrappedContextNode> = []
-    
-    // MARK: - Transactable
-
-    unowned let owner: Transactable
 
     // MARK: - Initialization
 
@@ -48,35 +52,31 @@ public class TransactionContext {
         self.owner = owner
     }
 
-    /// Creates transaction-context root.
+    /// Creates a transaction-context root.
     ///
-    /// The root context is used to govern the whole context tree.
+    /// - parameter owner: `Transactable` instance that will own the context root.
 
     final public class func createRoot(owner: Transactable) -> TransactionContext {
         return TransactionContextRoot(owner: owner)
     }
 
-    /// Creates transaction-context node.
+    /// Creates a transaction-context node.
+    ///
+    /// - parameters:
+    ///   - owner: `Transactable` instance that will own the context node.
+    ///   - parent: An instance of `Transactable` object whose transaction context will be a parent
+    ///             of the created one.
 
     final public class func createNode(owner: Transactable, parent: Transactable) -> TransactionContext {
         return TransactionContextNode(owner: owner, parent: parent)
     }
 
-    // MARK: - Consistency propagation
+    // MARK: - Transaction state management
 
-    /// Indicates whether all transactables enclosed in the current context's scope (`self`) are in
-    /// committable state.
-
-    final func isCommittable() -> Bool {
-        return owner.isCommittable()
-            && !children.contains(where: { !($0.object?.isCommittable() ?? true) })
-    }
-    
-    // MARK: - Transaction management
-
-    /// Requests the transaction start.
+    /// Begin a new transaction.
     ///
-    /// - throws: In the case of an exception an instance of `TransactionError` is thrown.
+    /// - throws: Can throw an instance of `TransactionError` (e.g. if another transaction is 
+    ///           already active).
     ///
     /// - returns: The descriptor for a newly started transaction.
 
@@ -84,27 +84,58 @@ public class TransactionContext {
         fatalError()
     }
 
-    /// Requests the transaction commit.
+    /// Commit the transaction.
     ///
-    /// - throws: In the case of an exception an instance of `TransactionError` is thrown.
+    /// - throws: Can throw an instance of `TransactionError` (e.g. if no transaction is actually
+    ///           active) or whatever `Error` returned by one of the transactable 
+    ///           `.hasCommittabilityError()` methods.
     ///
-    /// - parameter transaction: The descriptor of the transaction to commit.
+    /// - parameters:
+    ///   - transaction: The descriptor of the transaction to commit.  If this parameter is
+    ///                  not omitted then the context will check whether it matches to the
+    ///                  actually active one.  If they do not match, an error is thrown.
 
     public func commitTransaction(_ transaction: Transaction = Transaction.any) throws {
         fatalError()
     }
 
-    /// Requests the transaction rollback.
+    /// Rollback the transaction.
     ///
-    /// - throws: In the case of an exception an instance of `TransactionError` is thrown.
+    /// - throws: Can throw an instance of `TransactionError` (e.g. if no transaction is actually
+    ///           active).
     ///
-    /// - parameter transaction: The descriptor of the transaction to rollback.
+    /// - parameters:
+    ///   - transaction: The descriptor of the transaction to rollback.  If this parameter is
+    ///                  not omitted then the context will check whether it matches to the
+    ///                  actually active one.  If they do not match, an error is thrown.
 
     public func rollbackTransaction(_ transaction: Transaction = Transaction.any) throws {
         fatalError()
     }
 
-    // MARK: - Context management
+    // MARK: -
+
+    /// Verifies committability of the transactable.
+    ///
+    /// - returns: This method returns `nil` if everything is Ok and the transactable is good to
+    ///            commit the changes.  Otherwise an error describing the problem is returned.
+
+    final func hasCommittabilityError() -> Error? {
+        if let error = owner.hasCommittabilityError() {
+            return error
+        }
+
+        let error = children
+            .map({ $0.object?.hasCommittabilityError() })
+            .first(where: { $0 != nil })
+
+        switch error {
+        case .none:
+            return nil
+        case .some(let error):
+            return error
+        }
+    }
 
     final func register(node: TransactionContextNode) {
         let wrappedNode = WrappedContextNode(node)
@@ -122,7 +153,7 @@ public class TransactionContext {
         children.remove(wrappedNode)
     }
 
-    // MARK: - Transaction state propagation
+    // MARK: -
 
     final func propagateTransactionBegin() {
         owner.onBegin(transaction: transaction!)

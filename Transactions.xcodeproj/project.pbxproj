@@ -13,6 +13,8 @@
 		BA1364821E85D0DC00A1CC07 /* Transactions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA5EB1661E83AECB00DAEB37 /* Transactions.framework */; };
 		BA13648B1E85D25300A1CC07 /* Test_InactiveTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA13648A1E85D25300A1CC07 /* Test_InactiveTransaction.swift */; };
 		BA13648C1E85D25300A1CC07 /* Test_InactiveTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA13648A1E85D25300A1CC07 /* Test_InactiveTransaction.swift */; };
+		BA555F691E8F78BE00CA3D5A /* LibraryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA555F681E8F78BE00CA3D5A /* LibraryError.swift */; };
+		BA555F6A1E8F78BE00CA3D5A /* LibraryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA555F681E8F78BE00CA3D5A /* LibraryError.swift */; };
 		BA5EB14D1E83A60F00DAEB37 /* Transactions-macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = BA5EB14B1E83A60F00DAEB37 /* Transactions-macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA5EB1591E83AD9100DAEB37 /* TransactionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5EB1581E83AD9100DAEB37 /* TransactionContext.swift */; };
 		BA5EB15B1E83ADB200DAEB37 /* WeakWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5EB15A1E83ADB200DAEB37 /* WeakWrapper.swift */; };
@@ -69,6 +71,7 @@
 		BA13647D1E85D0DC00A1CC07 /* TransactionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransactionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA1364811E85D0DC00A1CC07 /* InfoTests-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InfoTests-iOS.plist"; sourceTree = "<group>"; };
 		BA13648A1E85D25300A1CC07 /* Test_InactiveTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Test_InactiveTransaction.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BA555F681E8F78BE00CA3D5A /* LibraryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryError.swift; sourceTree = "<group>"; };
 		BA5EB1481E83A60F00DAEB37 /* Transactions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Transactions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5EB14B1E83A60F00DAEB37 /* Transactions-macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Transactions-macOS.h"; sourceTree = "<group>"; };
 		BA5EB14C1E83A60F00DAEB37 /* Info-macOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
@@ -246,6 +249,7 @@
 			children = (
 				BAF680421E866D4B00FBE39F /* Library.swift */,
 				BAF680451E866DAF00FBE39F /* Book.swift */,
+				BA555F681E8F78BE00CA3D5A /* LibraryError.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -432,6 +436,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAAE967F1E89C6BF008EB56F /* Test_InactiveTransaction_RootContext.swift in Sources */,
+				BA555F691E8F78BE00CA3D5A /* LibraryError.swift in Sources */,
 				BAD1BC351E89C7BB002B898D /* Test_InactiveTransaction_NodeContext.swift in Sources */,
 				BA0085691E899522005B0D73 /* Test_ActiveTransaction.swift in Sources */,
 				BAF680431E866D4B00FBE39F /* Library.swift in Sources */,
@@ -447,6 +452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAAE96801E89C6BF008EB56F /* Test_InactiveTransaction_RootContext.swift in Sources */,
+				BA555F6A1E8F78BE00CA3D5A /* LibraryError.swift in Sources */,
 				BAD1BC361E89C7BB002B898D /* Test_InactiveTransaction_NodeContext.swift in Sources */,
 				BA00856A1E899522005B0D73 /* Test_ActiveTransaction.swift in Sources */,
 				BAF680441E866D4B00FBE39F /* Library.swift in Sources */,

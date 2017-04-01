@@ -18,7 +18,7 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
             guard let error = $0 as? TransactionError else {
                 XCTFail("Must throw TransactionError, but thrown \(type(of: $0)) instead"); return
             }
-            XCTAssertEqual(error, TransactionError.anotherTransactionIsStillActive)
+            XCTAssertEqual(error, TransactionError.anotherTransactionIsActive)
         }
     }
 
@@ -33,18 +33,18 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     }
 
     func test_CommitTransaction_WithWildcardDescriptor_OnNoncommittable_Throws() {
-        bookA.setCommittable(false)
+        bookA.setCommittabilityError(LibraryError.someError)
 
         XCTAssertThrowsError(try self.library.commitTransaction()) {
-            guard let error = $0 as? TransactionError else {
-                XCTFail("Must throw TransactionError, but thrown \(type(of: $0)) instead"); return
+            guard let error = $0 as? LibraryError else {
+                XCTFail("Must throw LibraryError, but thrown \(type(of: $0)) instead"); return
             }
-            XCTAssertEqual(error, TransactionError.uncommittableTransaction)
+            XCTAssertEqual(error, LibraryError.someError)
         }
     }
 
     func test_CommitTransaction_WithWildcardDescriptor_OnNoncommittable_DoesNotTriggerTransactable() {
-        bookB.setCommittable(false)
+        bookB.setCommittabilityError(LibraryError.someError)
 
         do { try library.commitTransaction(noncurrentTransaction) } catch { }
 
@@ -70,18 +70,18 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     }
 
     func test_CommitTransaction_WithCurrentDescriptor_OnNoncommittable_Throws() {
-        bookA.setCommittable(false)
+        bookA.setCommittabilityError(LibraryError.someError)
 
         XCTAssertThrowsError(try self.library.commitTransaction(currentTransaction)) {
-            guard let error = $0 as? TransactionError else {
-                XCTFail("Must throw TransactionError, but thrown \(type(of: $0)) instead"); return
+            guard let error = $0 as? LibraryError else {
+                XCTFail("Must throw LibraryError, but thrown \(type(of: $0)) instead"); return
             }
-            XCTAssertEqual(error, TransactionError.uncommittableTransaction)
+            XCTAssertEqual(error, LibraryError.someError)
         }
     }
 
     func test_CommitTransaction_WithCurrentDescriptor_OnNoncommittable_DoesNotTriggerTransactable() {
-        bookB.setCommittable(false)
+        bookB.setCommittabilityError(LibraryError.someError)
 
         do { try library.commitTransaction(currentTransaction) } catch { }
 

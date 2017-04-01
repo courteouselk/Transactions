@@ -67,9 +67,9 @@ class Test_InactiveTransaction : XCTestCase {
     }
 
     final func test_InitialState_TransactablesAreCommittable() {
-        XCTAssertTrue(library.isCommittable())
-        XCTAssertTrue(bookA.isCommittable())
-        XCTAssertTrue(bookB.isCommittable())
+        XCTAssertNil(library.hasCommittabilityError())
+        XCTAssertNil(bookA.hasCommittabilityError())
+        XCTAssertNil(bookB.hasCommittabilityError())
     }
 
 }

@@ -24,7 +24,7 @@ final class TransactionContextRoot : TransactionContext {
 
     override func beginTransaction() throws -> Transaction {
         guard !isActive else {
-            throw TransactionError.anotherTransactionIsStillActive
+            throw TransactionError.anotherTransactionIsActive
         }
 
         let newTransaction = Transaction()
@@ -45,8 +45,8 @@ final class TransactionContextRoot : TransactionContext {
             throw TransactionError.transactionIsNotActive
         }
 
-        guard isCommittable() else {
-            throw TransactionError.uncommittableTransaction
+        if let committabilityError = hasCommittabilityError() {
+            throw committabilityError
         }
 
         propagateTransactionCommit()

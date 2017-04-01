@@ -90,19 +90,21 @@
         <span class="n">_transactionContext</span> <span class="o">=</span> <span class="kt">TransactionContext</span><span class="o">.</span><span class="nf">createRoot</span><span class="p">(</span><span class="nv">owner</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="kd">func</span> <span class="nf">isCommittable</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">true</span> <span class="c1">// Validate the staged changes</span>
-    <span class="p">}</span>
-
     <span class="kd">func</span> <span class="nf">onBegin</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// Prepare for new transaction    </span>
     <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">onCommit</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">hasCommittabilityError</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Error</span><span class="p">?</span> <span class="p">{</span>
+        <span class="c1">// Verify the staged changes and return `nil` if they are Ok to commit, </span>
+        <span class="c1">// otherwise return the error describing the problem</span>
+        <span class="k">return</span> <span class="kc">nil</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">onCommit</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// Incorporate the staged changes into object's actual state</span>
     <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">onRollback</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">onRollback</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// Discard staged changes</span>
     <span class="p">}</span>
 
@@ -130,19 +132,21 @@
         <span class="n">_transactionContext</span> <span class="o">=</span> <span class="kt">TransactionContext</span><span class="o">.</span><span class="nf">createNode</span><span class="p">(</span><span class="nv">owner</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">parent</span><span class="p">:</span> <span class="n">library</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="kd">func</span> <span class="nf">isCommittable</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">true</span> <span class="c1">// Validate the staged changes</span>
-    <span class="p">}</span>
-
     <span class="kd">func</span> <span class="nf">onBegin</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// Prepare for new transaction    </span>
     <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">onCommit</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">hasCommittabilityError</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Error</span><span class="p">?</span> <span class="p">{</span>
+        <span class="c1">// Verify the staged changes and return `nil` if they are Ok to commit, </span>
+        <span class="c1">// otherwise return the error describing the problem</span>
+        <span class="k">return</span> <span class="kc">nil</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">onCommit</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// Incorporate the staged changes into object's actual state</span>
     <span class="p">}</span>
 
-    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">onRollback</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">onRollback</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// Discard staged changes</span>
     <span class="p">}</span>
 
@@ -197,7 +201,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">Anton Bronnikov</a>. All rights reserved. (Last updated: 2017-03-30)</p>
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">Anton Bronnikov</a>. All rights reserved. (Last updated: 2017-04-01)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.5</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
