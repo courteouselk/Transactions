@@ -74,19 +74,54 @@
               </div>
             <p>Helper class for transaction context management.</p>
 
-<p>Should be owned by each individual <code><a href="../Protocols/Transactable.html">Transactable</a></code>.</p>
+<p>An instanse of <code>TransactionContext</code> should be owned by each individual <code><a href="../Protocols/Transactable.html">Transactable</a></code>.  There 
+are two kind of transaction contexts, root and node.  The root instance stands at the root of
+the contexts tree structure and is typically owned by the top-level container of the
+transactables hierarchy.  All other transactables own a context node that can have one parent 
+node and multiple child nodes.</p>
+
+<p>Any transaction status change (begin/commit/rollback) requested on a context node is dispatched 
+to the root of the tree, from where the requested action is propagated throughout the whole 
+hierarchy of contexts.</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Transaction%20status"></a>
-                <a name="//apple_ref/swift/Section/Transaction status" class="dashAnchor"></a>
-                <a href="#/Transaction%20status">
-                  <h3 class="section-name">Transaction status</h3>
+                <a name="/Transaction%20state"></a>
+                <a name="//apple_ref/swift/Section/Transaction state" class="dashAnchor"></a>
+                <a href="#/Transaction%20state">
+                  <h3 class="section-name">Transaction state</h3>
                 </a>
               </div>
               <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC12Transactions18TransactionContext8isActiveSb"></a>
+                    <a name="//apple_ref/swift/Property/isActive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC12Transactions18TransactionContext8isActiveSb">isActive</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates whether the transaction is currently active.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="k">var</span> <span class="nv">isActive</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -110,33 +145,6 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:vC12Transactions18TransactionContext8isActiveSb"></a>
-                    <a name="//apple_ref/swift/Property/isActive" class="dashAnchor"></a>
-                    <a class="token" href="#/s:vC12Transactions18TransactionContext8isActiveSb">isActive</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Indicates whether the transaction is currently active.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="k">var</span> <span class="nv">isActive</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -167,9 +175,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates transaction-context root.</p>
-
-<p>The root context is used to govern the whole context tree.</p>
+                        <p>Creates a transaction-context root.</p>
 
                       </div>
                       <div class="declaration">
@@ -179,6 +185,26 @@
                           <pre class="highlight"><code><span class="kd">final</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">createRoot</span><span class="p">(</span><span class="nv">owner</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Transactable.html">Transactable</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">TransactionContext</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>owner</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>Transactable</code> instance that will own the context root.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -196,7 +222,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates transaction-context node.</p>
+                        <p>Creates a transaction-context node.</p>
 
                       </div>
                       <div class="declaration">
@@ -207,6 +233,39 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>owner</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>Transactable</code> instance that will own the context node.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>parent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An instance of <code>Transactable</code> object whose transaction context will be a parent of the created one.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -214,10 +273,10 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Transaction%20management"></a>
-                <a name="//apple_ref/swift/Section/Transaction management" class="dashAnchor"></a>
-                <a href="#/Transaction%20management">
-                  <h3 class="section-name">Transaction management</h3>
+                <a name="/Transaction%20state%20management"></a>
+                <a name="//apple_ref/swift/Section/Transaction state management" class="dashAnchor"></a>
+                <a href="#/Transaction%20state%20management">
+                  <h3 class="section-name">Transaction state management</h3>
                 </a>
               </div>
               <ul>
@@ -234,11 +293,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Requests the transaction start.</p>
+                        <p>Begin a new transaction.</p>
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>In the case of an exception an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> is thrown.</p>
+    <p>Can throw an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> (e.g. if another transaction is 
+      already active).</p>
 
 </div>
 
@@ -272,11 +332,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Requests the transaction commit.</p>
+                        <p>Commit the transaction.</p>
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>In the case of an exception an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> is thrown.</p>
+    <p>Can throw an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> (e.g. if no transaction is actually
+      active) or whatever <code>Error</code> returned by one of the transactable 
+      <code>.hasCommittabilityError()</code> methods.</p>
 
 </div>
 
@@ -301,7 +363,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The descriptor of the transaction to commit.</p>
+                                  <p>The descriptor of the transaction to commit.  If this parameter is not omitted then the context will check whether it matches to the actually active one.  If they do not match, an error is thrown.</p>
 
                                 </div>
                               </td>
@@ -325,11 +387,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Requests the transaction rollback.</p>
+                        <p>Rollback the transaction.</p>
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>In the case of an exception an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> is thrown.</p>
+    <p>Can throw an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> (e.g. if no transaction is actually
+      active).</p>
 
 </div>
 
@@ -354,7 +417,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The descriptor of the transaction to rollback.</p>
+                                  <p>The descriptor of the transaction to rollback.  If this parameter is not omitted then the context will check whether it matches to the actually active one.  If they do not match, an error is thrown.</p>
 
                                 </div>
                               </td>

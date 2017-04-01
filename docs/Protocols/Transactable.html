@@ -75,8 +75,8 @@
             <p>Transaction-aware object.</p>
 
 <p>Conforming object change their state as a part of transaction.  Each individual transaction 
-will encapsulate changes to all of the objects and only commit if all of them report
-consistency.</p>
+will encapsulate changes to all of the objects in transaction context tree and only commit if 
+all of them report no consistency errors.</p>
 
           </section>
           <section class="section task-group-section">
@@ -142,7 +142,7 @@ consistency.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>This method returns <code>nil</code> if everything is Ok and the transactable is good to commit the changes.  Otherwise an error describing the problem is returned.</p>
+                        <p>This method returns <code>nil</code> if everything is Ok and the transactable is good to commit the changes.  Otherwise an error describing the problem is returned.  This error will be thrown by <code><a href="../Classes/TransactionContext.html">TransactionContext</a></code>’s <code>.commitTransaction()</code> method.</p>
 
                       </div>
                     </section>
@@ -161,10 +161,10 @@ consistency.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Transaction begin handler.</p>
+                        <p>Call-back method for transaction begin.</p>
 
 <p>This method is called at the beginning of each transaction to allow the transactable object
-make necessary preparations before the transaction starts.</p>
+to make all necessary preparations before the transaction starts.</p>
 
                       </div>
                       <div class="declaration">
@@ -191,9 +191,10 @@ make necessary preparations before the transaction starts.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Transaction commit handler.</p>
+                        <p>Call-back method for transaction commit.</p>
 
-<p>This method is called when the transaction commit is requested.</p>
+<p>This method is called when the transaction commit is requested.  The transactable should 
+incorporate all staged changes into an active state.</p>
 
                       </div>
                       <div class="declaration">
@@ -220,9 +221,10 @@ make necessary preparations before the transaction starts.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Transaction rollback handler.</p>
+                        <p>Call-back method for transaction rollback.</p>
 
-<p>This method is called when the transaction rollback is requested.</p>
+<p>This method is called when the transaction is being rolled back.  The transactable should
+discard any staged changes and reset its state.</p>
 
                       </div>
                       <div class="declaration">
@@ -239,6 +241,13 @@ make necessary preparations before the transaction starts.</p>
               </ul>
             </div>
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Default%20implementations"></a>
+                <a name="//apple_ref/swift/Section/Default implementations" class="dashAnchor"></a>
+                <a href="#/Default%20implementations">
+                  <h3 class="section-name">Default implementations</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -257,6 +266,13 @@ make necessary preparations before the transaction starts.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Indicates whether the transaction is currently active.</p>
+
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    This property is not supposed to be implemented by the adopting class.
+         Please use the default implementation.
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -290,6 +306,13 @@ make necessary preparations before the transaction starts.</p>
 
 <p>If no transaction is active the value is <code>nil</code>.</p>
 
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    This property is not supposed to be implemented by the adopting class.
+         Please use the default implementation.
+
+</div>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -318,11 +341,19 @@ make necessary preparations before the transaction starts.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Requests the transaction start.</p>
+                        <p>Begin a new transaction.</p>
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>In the case of an exception an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> is thrown.</p>
+    <p>Can throw an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> (e.g. if another transaction is
+      already active).</p>
+
+</div>
+
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    <p>This method is not supposed to be implemented by the adopting class.
+         Please use the default implementation.</p>
 
 </div>
 
@@ -359,11 +390,20 @@ make necessary preparations before the transaction starts.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Requests the transaction commit.</p>
+                        <p>Commit the transaction.</p>
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>In the case of an exception an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> is thrown.</p>
+    <p>Can throw an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> (e.g. if no transaction is actually
+      active) or whatever <code>Error</code> returned by one of the transactable
+      <code><a href="../Protocols/Transactable.html#/s:FP12Transactions12Transactable22hasCommittabilityErrorFT_GSqPs5Error__">.hasCommittabilityError()</a></code> methods.</p>
+
+</div>
+
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    <p>This method is not supposed to be implemented by the adopting class.
+         Please use the default implementation.</p>
 
 </div>
 
@@ -388,7 +428,7 @@ make necessary preparations before the transaction starts.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The descriptor of the transaction to commit.</p>
+                                  <p>The descriptor of the transaction to commit.  If this parameter is not omitted then the context will check whether it matches to the actually active one.  If they do not match, an error is thrown.</p>
 
                                 </div>
                               </td>
@@ -415,11 +455,19 @@ make necessary preparations before the transaction starts.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Requests the transaction rollback.</p>
+                        <p>Rollback the transaction.</p>
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>In the case of an exception an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> is thrown.</p>
+    <p>Can throw an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> (e.g. if no transaction is actually
+      active).</p>
+
+</div>
+
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    <p>This method is not supposed to be implemented by the adopting class.
+         Please use the default implementation.</p>
 
 </div>
 
@@ -444,7 +492,7 @@ make necessary preparations before the transaction starts.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The descriptor of the transaction to rollback.</p>
+                                  <p>The descriptor of the transaction to rollback.  If this parameter is not omitted then the context will check whether it matches to the actually active one.  If they do not match, an error is thrown.</p>
 
                                 </div>
                               </td>

@@ -86,7 +86,15 @@
                       <div class="abstract">
                         <p>Helper class for transaction context management.</p>
 
-<p>Should be owned by each individual <code><a href="Protocols/Transactable.html">Transactable</a></code>.</p>
+<p>An instanse of <code>TransactionContext</code> should be owned by each individual <code><a href="Protocols/Transactable.html">Transactable</a></code>.  There 
+are two kind of transaction contexts, root and node.  The root instance stands at the root of
+the contexts tree structure and is typically owned by the top-level container of the
+transactables hierarchy.  All other transactables own a context node that can have one parent 
+node and multiple child nodes.</p>
+
+<p>Any transaction status change (begin/commit/rollback) requested on a context node is dispatched 
+to the root of the tree, from where the requested action is propagated throughout the whole 
+hierarchy of contexts.</p>
 
                         <a href="Classes/TransactionContext.html" class="slightly-smaller">See more</a>
                       </div>

@@ -72,7 +72,7 @@
 
                 </div>
               </div>
-            <p>Transaction management related error.</p>
+            <p>Transaction related error.</p>
 
           </section>
           <section class="section task-group-section">
@@ -81,9 +81,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO12Transactions16TransactionError31anotherTransactionIsStillActiveFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/anotherTransactionIsStillActive" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO12Transactions16TransactionError31anotherTransactionIsStillActiveFMS0_S0_">anotherTransactionIsStillActive</a>
+                    <a name="/s:FO12Transactions16TransactionError26anotherTransactionIsActiveFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/anotherTransactionIsActive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO12Transactions16TransactionError26anotherTransactionIsActiveFMS0_S0_">anotherTransactionIsActive</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -91,14 +91,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Failed to begin a transaction because another transaction is still active.</p>
+                        <p>Failed to begin a new transaction because another transaction is active.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">anotherTransactionIsStillActive</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">anotherTransactionIsActive</span></code></pre>
 
                         </div>
                       </div>
@@ -122,7 +122,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Failed to commit or rollback a transaction because no transaction was actually running.</p>
+                        <p>Failed to commit/rollback a transaction because no transaction is actually active.</p>
 
                       </div>
                       <div class="declaration">
@@ -130,37 +130,6 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="k">case</span> <span class="n">transactionIsNotActive</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FO12Transactions16TransactionError24uncommittableTransactionFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/uncommittableTransaction" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO12Transactions16TransactionError24uncommittableTransactionFMS0_S0_">uncommittableTransaction</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Failed to commit a transaction because some transactable in its context reported inconsistency.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">uncommittableTransaction</span></code></pre>
 
                         </div>
                       </div>
@@ -184,7 +153,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Trying to commit/rollback a transaction with a wrong transaction descriptor.</p>
+                        <p>Trying to commit/rollback a transaction using wrong transaction descriptor.</p>
 
                       </div>
                       <div class="declaration">
