@@ -94,10 +94,9 @@
         <span class="c1">// Prepare for new transaction    </span>
     <span class="p">}</span>
 
-    <span class="kd">func</span> <span class="nf">hasCommittabilityError</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Error</span><span class="p">?</span> <span class="p">{</span>
-        <span class="c1">// Verify the staged changes and return `nil` if they are Ok to commit, </span>
-        <span class="c1">// otherwise return the error describing the problem</span>
-        <span class="k">return</span> <span class="kc">nil</span>
+    <span class="kd">func</span> <span class="nf">onValidateCommit</span><span class="p">()</span> <span class="k">throws</span> <span class="p">{</span>
+        <span class="c1">// Verify the staged changes and simply return if they are Ok to commit, </span>
+        <span class="c1">// otherwise throw an error</span>
     <span class="p">}</span>
 
     <span class="kd">func</span> <span class="nf">onCommit</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
@@ -136,10 +135,9 @@
         <span class="c1">// Prepare for new transaction    </span>
     <span class="p">}</span>
 
-    <span class="kd">func</span> <span class="nf">hasCommittabilityError</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Error</span><span class="p">?</span> <span class="p">{</span>
-        <span class="c1">// Verify the staged changes and return `nil` if they are Ok to commit, </span>
-        <span class="c1">// otherwise return the error describing the problem</span>
-        <span class="k">return</span> <span class="kc">nil</span>
+    <span class="kd">func</span> <span class="nf">onValidateCommit</span><span class="p">()</span> <span class="k">throws</span> <span class="p">{</span>
+        <span class="c1">// Verify the staged changes and simply return if they are Ok to commit, </span>
+        <span class="c1">// otherwise throw an error</span>
     <span class="p">}</span>
 
     <span class="kd">func</span> <span class="nf">onCommit</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>

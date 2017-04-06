@@ -29,10 +29,9 @@ class Library : Transactable {
         // Prepare for new transaction    
     }
 
-    func hasCommittabilityError() -> Error? {
-        // Verify the staged changes and return `nil` if they are Ok to commit, 
-        // otherwise return the error describing the problem
-        return nil
+    func onValidateCommit() throws {
+        // Verify the staged changes and simply return if they are Ok to commit, 
+        // otherwise throw an error
     }
 
     func onCommit(transaction: Transaction) {
@@ -73,10 +72,9 @@ class Book : Transactable {
         // Prepare for new transaction    
     }
 
-    func hasCommittabilityError() -> Error? {
-        // Verify the staged changes and return `nil` if they are Ok to commit, 
-        // otherwise return the error describing the problem
-        return nil
+    func onValidateCommit() throws {
+        // Verify the staged changes and simply return if they are Ok to commit, 
+        // otherwise throw an error
     }
 
     func onCommit(transaction: Transaction) {
