@@ -38,12 +38,14 @@ final class Book : Transactable, CustomStringConvertible {
         _transactionContext = TransactionContext.createNode(owner: self, parent: library)
     }
 
-    func hasCommittabilityError() -> Error? {
-        return _committabilityError
-    }
-
     func onBegin(transaction: Transaction) {
         beginCount += 1
+    }
+
+    func onValidateCommit() throws {
+        if let error = _committabilityError {
+            throw error
+        }
     }
 
     func onCommit(transaction: Transaction) {

@@ -4,11 +4,9 @@
 
 ### Changed API
 
-- Refactored `Transactable.isCommittable()` into `Transactable.hasCommittabilityError()` that 
-  returns `Error?`
-  - This allows transactable to be more specific about the problem (i.e. why the transaction can not 
-    be committed).  The error returned by `.hasCommittabilityError()` will be thrown by 
-    `.commitTransaction()`.
+- Refactored `Transactable.isCommittable()` into `onValidateCommit()` that  can throw `Error` in 
+  if the transaction is not good to commit. This allows transactable to be more specific about the 
+  problem (i.e. why the transaction can not be committed).
 
 ### Miscellaneous
 

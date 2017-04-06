@@ -45,9 +45,7 @@ final class TransactionContextRoot : TransactionContext {
             throw TransactionError.transactionIsNotActive
         }
 
-        if let committabilityError = hasCommittabilityError() {
-            throw committabilityError
-        }
+        try validateCommit()
 
         propagateTransactionCommit()
 

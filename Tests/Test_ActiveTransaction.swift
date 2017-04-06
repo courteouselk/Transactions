@@ -79,10 +79,4 @@ class Test_ActiveTransaction: XCTestCase {
         XCTAssertEqual(bookB.transactionContext.transaction, currentTransaction)
     }
 
-    final func test_InitialState_TransactablesAreCommittable() {
-        XCTAssertNil(library.hasCommittabilityError())
-        XCTAssertNil(bookA.hasCommittabilityError())
-        XCTAssertNil(bookB.hasCommittabilityError())
-    }
-
 }

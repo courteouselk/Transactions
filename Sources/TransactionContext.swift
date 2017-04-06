@@ -115,26 +115,12 @@ public class TransactionContext {
 
     // MARK: -
 
-    /// Verifies committability of the transactable.
-    ///
-    /// - returns: This method returns `nil` if everything is Ok and the transactable is good to
-    ///            commit the changes.  Otherwise an error describing the problem is returned.
+    final func validateCommit() throws {
+        try owner.onValidateCommit()
 
-    final func hasCommittabilityError() -> Error? {
-        if let error = owner.hasCommittabilityError() {
-            return error
-        }
-
-        let error = children
-            .map({ $0.object?.hasCommittabilityError() })
-            .first(where: { $0 != nil })
-
-        switch error {
-        case .none:
-            return nil
-        case .some(let error):
-            return error
-        }
+        try children.forEach({
+            try $0.object?.validateCommit()
+        })
     }
 
     final func register(node: TransactionContextNode) {

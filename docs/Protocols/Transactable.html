@@ -119,38 +119,6 @@ all of them report no consistency errors.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FP12Transactions12Transactable22hasCommittabilityErrorFT_GSqPs5Error__"></a>
-                    <a name="//apple_ref/swift/Method/hasCommittabilityError()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FP12Transactions12Transactable22hasCommittabilityErrorFT_GSqPs5Error__">hasCommittabilityError()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Verifies committability of the transactable.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">hasCommittabilityError</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Error</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>This method returns <code>nil</code> if everything is Ok and the transactable is good to commit the changes.  Otherwise an error describing the problem is returned.  This error will be thrown by <code><a href="../Classes/TransactionContext.html">TransactionContext</a></code>’s <code>.commitTransaction()</code> method.</p>
-
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:FP12Transactions12Transactable7onBeginFT11transactionVS_11Transaction_T_"></a>
                     <a name="//apple_ref/swift/Method/onBegin(transaction:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:FP12Transactions12Transactable7onBeginFT11transactionVS_11Transaction_T_">onBegin(transaction:)</a>
@@ -172,6 +140,42 @@ to make all necessary preparations before the transaction starts.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">func</span> <span class="nf">onBegin</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP12Transactions12Transactable16onValidateCommitFzT_T_"></a>
+                    <a name="//apple_ref/swift/Method/onValidateCommit()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP12Transactions12Transactable16onValidateCommitFzT_T_">onValidateCommit()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Call-back method that verifies whether a transaction is good to commit the changes.</p>
+
+<p>This method is called by the context prior transaction commit.  If no one of the 
+transactables in the context tree throws an error, the commit can proceed.</p>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    An error is thrown in case if the transaction can not be commited.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">onValidateCommit</span><span class="p">()</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -396,7 +400,7 @@ discard any staged changes and reset its state.</p>
     <p class="aside-title">Throws</p>
     <p>Can throw an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> (e.g. if no transaction is actually
       active) or whatever <code>Error</code> returned by one of the transactable
-      <code><a href="../Protocols/Transactable.html#/s:FP12Transactions12Transactable22hasCommittabilityErrorFT_GSqPs5Error__">.hasCommittabilityError()</a></code> methods.</p>
+      <code>.hasCommittabilityError()</code> methods.</p>
 
 </div>
 
@@ -508,7 +512,7 @@ discard any staged changes and reset its state.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">Anton Bronnikov</a>. All rights reserved. (Last updated: 2017-04-01)</p>
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">Anton Bronnikov</a>. All rights reserved. (Last updated: 2017-04-06)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.5</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -20,20 +20,21 @@ public protocol Transactable : AnyObject {
 
     var transactionContext: TransactionContext { get }
 
-    /// Verifies committability of the transactable.
-    ///
-    /// - returns: This method returns `nil` if everything is Ok and the transactable is good to 
-    ///            commit the changes.  Otherwise an error describing the problem is returned.  This
-    ///            error will be thrown by `TransactionContext`'s `.commitTransaction()` method.
-
-    func hasCommittabilityError() -> Error?
-
     /// Call-back method for transaction begin.
     /// 
     /// This method is called at the beginning of each transaction to allow the transactable object
     /// to make all necessary preparations before the transaction starts.
 
     func onBegin(transaction: Transaction)
+
+    /// Call-back method that verifies whether a transaction is good to commit the changes.
+    ///
+    /// This method is called by the context prior transaction commit.  If no one of the 
+    /// transactables in the context tree throws an error, the commit can proceed.
+    ///
+    /// - throws: An error is thrown in case if the transaction can not be commited.
+
+    func onValidateCommit() throws
 
     /// Call-back method for transaction commit.
     ///
