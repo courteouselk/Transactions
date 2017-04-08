@@ -136,9 +136,9 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     func test_CommitTransaction_WithWildcardDescriptor_SetsContextTransactionNil() {
         try! library.commitTransaction()
 
-        XCTAssertNil(library.transactionContext.transaction)
-        XCTAssertNil(bookA.transactionContext.transaction)
-        XCTAssertNil(bookB.transactionContext.transaction)
+        XCTAssertNil(library.transactionContext.activeTransaction)
+        XCTAssertNil(bookA.transactionContext.activeTransaction)
+        XCTAssertNil(bookB.transactionContext.activeTransaction)
     }
     
     func test_CommitTransaction_WithWildcardDescriptor_TriggersTransactablesOnCommitOnly() {
@@ -170,9 +170,9 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     func test_CommitTransaction_WithCurrentDescriptor_SetsContextTransactionNil() {
         try! library.commitTransaction(currentTransaction)
 
-        XCTAssertNil(library.transactionContext.transaction)
-        XCTAssertNil(bookA.transactionContext.transaction)
-        XCTAssertNil(bookB.transactionContext.transaction)
+        XCTAssertNil(library.transactionContext.activeTransaction)
+        XCTAssertNil(bookA.transactionContext.activeTransaction)
+        XCTAssertNil(bookB.transactionContext.activeTransaction)
     }
 
     func test_CommitTransaction_WithCurrentDescriptor_TriggersTransactablesOnCommitOnly() {
@@ -247,9 +247,9 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     func test_RollbackTransaction_WithWildcardDescriptor_SetsContextTransactionNil() {
         try! library.rollbackTransaction()
 
-        XCTAssertNil(library.transactionContext.transaction)
-        XCTAssertNil(bookA.transactionContext.transaction)
-        XCTAssertNil(bookB.transactionContext.transaction)
+        XCTAssertNil(library.transactionContext.activeTransaction)
+        XCTAssertNil(bookA.transactionContext.activeTransaction)
+        XCTAssertNil(bookB.transactionContext.activeTransaction)
     }
     
     func test_RollbackTransaction_WithWildcardDescriptor_TriggersTransactablesOnRollbackOnly() {
@@ -281,9 +281,9 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
     func test_RollbackTransaction_WithCurrentDescriptor_SetsContextTransactionNil() {
         try! library.rollbackTransaction(currentTransaction)
 
-        XCTAssertNil(library.transactionContext.transaction)
-        XCTAssertNil(bookA.transactionContext.transaction)
-        XCTAssertNil(bookB.transactionContext.transaction)
+        XCTAssertNil(library.transactionContext.activeTransaction)
+        XCTAssertNil(bookA.transactionContext.activeTransaction)
+        XCTAssertNil(bookB.transactionContext.activeTransaction)
     }
 
     func test_RollbackTransaction_WithCurrentDescriptor_TriggersTransactablesOnRollbackOnly() {

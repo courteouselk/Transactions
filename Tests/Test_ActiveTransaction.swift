@@ -74,9 +74,9 @@ class Test_ActiveTransaction: XCTestCase {
     }
 
     final func test_InitialState_ContextTransactionsAreNotNil() {
-        XCTAssertEqual(library.transactionContext.transaction, currentTransaction)
-        XCTAssertEqual(bookA.transactionContext.transaction, currentTransaction)
-        XCTAssertEqual(bookB.transactionContext.transaction, currentTransaction)
+        XCTAssertEqual(library.transactionContext.activeTransaction, currentTransaction)
+        XCTAssertEqual(bookA.transactionContext.activeTransaction, currentTransaction)
+        XCTAssertEqual(bookB.transactionContext.activeTransaction, currentTransaction)
     }
 
 }

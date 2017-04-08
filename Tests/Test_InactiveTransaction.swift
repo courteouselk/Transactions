@@ -61,9 +61,9 @@ class Test_InactiveTransaction : XCTestCase {
     }
 
     final func test_InitialState_ContextTransactionsAreNil() {
-        XCTAssertNil(library.transactionContext.transaction)
-        XCTAssertNil(bookA.transactionContext.transaction)
-        XCTAssertNil(bookB.transactionContext.transaction)
+        XCTAssertNil(library.transactionContext.activeTransaction)
+        XCTAssertNil(bookA.transactionContext.activeTransaction)
+        XCTAssertNil(bookB.transactionContext.activeTransaction)
     }
 
 }

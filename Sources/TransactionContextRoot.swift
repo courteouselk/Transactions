@@ -12,7 +12,7 @@ final class TransactionContextRoot : TransactionContext {
 
     private var _transaction: Transaction? = nil
 
-    override var transaction: Transaction? {
+    override var activeTransaction: Transaction? {
         return _transaction
     }
 
@@ -23,7 +23,7 @@ final class TransactionContextRoot : TransactionContext {
     // MARK: - Transaction management
 
     override func beginTransaction() throws -> Transaction {
-        guard !isActive else {
+        guard !transactionIsActive else {
             throw TransactionError.anotherTransactionIsActive
         }
 
@@ -41,7 +41,7 @@ final class TransactionContextRoot : TransactionContext {
             throw TransactionError.wrongTransactionDescriptor
         }
 
-        guard isActive else {
+        guard transactionIsActive else {
             throw TransactionError.transactionIsNotActive
         }
 
@@ -57,7 +57,7 @@ final class TransactionContextRoot : TransactionContext {
             throw TransactionError.wrongTransactionDescriptor
         }
 
-        guard isActive else {
+        guard transactionIsActive else {
             throw TransactionError.transactionIsNotActive
         }
 

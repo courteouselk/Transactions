@@ -1,12 +1,14 @@
 # Change Log
 
-## Unreleased
+## [0.0.2](https://github.com/courteouselk/Transactions/compare/0.0.1...0.0.2) (unreleased)
 
 ### Changed API
 
-- Refactored `Transactable.isCommittable()` into `onValidateCommit()` that  can throw `Error` in 
-  if the transaction is not good to commit. This allows transactable to be more specific about the 
+- Renamed `Transactable.isCommittable()` to `onValidateCommit()` that  can throw `Error` if the 
+  transaction is not good to commit. This allows transactable to be more specific about the 
   problem (i.e. why the transaction can not be committed).
+- Renamed `TransactionContext.transaction` to `.activeTransaction`
+- Renamed `TransactionContext.isActive` to `.transactionIsActive`
 
 ### Miscellaneous
 

@@ -32,9 +32,9 @@ class Test_InactiveTransaction_NodeContext : Test_InactiveTransaction {
     func test_BeginTransaction_SetsContextTransactionConsistently() {
         let transaction = try! bookB.beginTransaction()
 
-        XCTAssertEqual(library.transactionContext.transaction, transaction)
-        XCTAssertEqual(bookA.transactionContext.transaction, transaction)
-        XCTAssertEqual(bookB.transactionContext.transaction, transaction)
+        XCTAssertEqual(library.transactionContext.activeTransaction, transaction)
+        XCTAssertEqual(bookA.transactionContext.activeTransaction, transaction)
+        XCTAssertEqual(bookB.transactionContext.activeTransaction, transaction)
     }
 
     func test_BeginTransaction_TriggersTransactablesOnBeginOnly() {

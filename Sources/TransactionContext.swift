@@ -24,15 +24,15 @@ public class TransactionContext {
 
     /// Indicates whether the transaction is currently active.
 
-    final public var isActive: Bool {
-        return transaction != nil
+    final public var transactionIsActive: Bool {
+        return activeTransaction != nil
     }
 
     /// Currently active transaction.
     ///
     /// If no transaction is active the value is `nil`.
 
-    public var transaction: Transaction? {
+    public var activeTransaction: Transaction? {
         fatalError()
     }
 
@@ -142,7 +142,7 @@ public class TransactionContext {
     // MARK: -
 
     final func propagateTransactionBegin() {
-        owner.onBegin(transaction: transaction!)
+        owner.onBegin(transaction: activeTransaction!)
 
         for wrappedNode in children {
             guard let node = wrappedNode.object else {
@@ -164,7 +164,7 @@ public class TransactionContext {
             node.propagateTransactionCommit()
         }
 
-        owner.onCommit(transaction: transaction!)
+        owner.onCommit(transaction: activeTransaction!)
     }
 
     final func propagateTransactionRollback() {
@@ -177,7 +177,7 @@ public class TransactionContext {
             node.propagateTransactionRollback()
         }
 
-        owner.onRollback(transaction: transaction!)
+        owner.onRollback(transaction: activeTransaction!)
     }
 
 }

@@ -62,7 +62,7 @@ extension Transactable {
     ///              Please use the default implementation.
 
     public var transactionIsActive: Bool {
-        return transactionContext.isActive
+        return transactionContext.transactionIsActive
     }
 
     /// Currently active transaction.
@@ -73,7 +73,7 @@ extension Transactable {
     ///              Please use the default implementation.
 
     public var activeTransaction: Transaction? {
-        return transactionContext.transaction
+        return transactionContext.activeTransaction
     }
 
     /// Begin a new transaction.
