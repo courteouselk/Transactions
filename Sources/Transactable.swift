@@ -125,4 +125,33 @@ extension Transactable {
         try transactionContext.rollbackTransaction(transaction)
     }
 
+    /// Syntactical sugar used to form transactions.
+    ///
+    /// The execution sequence is:
+    /// 
+    /// 1. Call `beginTransaction()` method.
+    /// 2. Call argument closure `executeTransaction()`.
+    /// 3. If `executeTransaction()` does not throw any errors, call `commitTransaction()`.
+    ///    Otherwise, call `rollbackTransaction()` and rethrow any error that
+    ///    `executeTransaction()` might have thrown.
+    ///
+    /// - parameters:
+    ///   - executeTransaction: Closure that encapsulated the body of the transaction.
+    ///
+    /// - throws: Any error that `executeTransaction`, `beginTransaction`, `commitTransaction`, or
+    ///           `rollbackTransaction` might throw.
+
+    public func transaction(executeTransaction: (Void) throws -> Void) throws {
+        try beginTransaction()
+
+        do {
+            try executeTransaction()
+        } catch {
+            try rollbackTransaction()
+            throw error
+        }
+
+        try commitTransaction()
+    }
+
 }
