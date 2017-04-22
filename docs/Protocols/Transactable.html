@@ -123,6 +123,9 @@ all of them report no consistency errors.</p>
                     <a name="//apple_ref/swift/Method/onBegin(transaction:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:FP12Transactions12Transactable7onBeginFT11transactionVS_11Transaction_T_">onBegin(transaction:)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -134,6 +137,10 @@ all of them report no consistency errors.</p>
 <p>This method is called at the beginning of each transaction to allow the transactable object
 to make all necessary preparations before the transaction starts.</p>
 
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -153,6 +160,9 @@ to make all necessary preparations before the transaction starts.</p>
                     <a name="//apple_ref/swift/Method/onValidateCommit()" class="dashAnchor"></a>
                     <a class="token" href="#/s:FP12Transactions12Transactable16onValidateCommitFzT_T_">onValidateCommit()</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -170,6 +180,10 @@ transactables in the context tree throws an error, the commit can proceed.</p>
 
 </div>
 
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -189,6 +203,9 @@ transactables in the context tree throws an error, the commit can proceed.</p>
                     <a name="//apple_ref/swift/Method/onCommit(transaction:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:FP12Transactions12Transactable8onCommitFT11transactionVS_11Transaction_T_">onCommit(transaction:)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -200,6 +217,10 @@ transactables in the context tree throws an error, the commit can proceed.</p>
 <p>This method is called when the transaction commit is requested.  The transactable should 
 incorporate all staged changes into an active state.</p>
 
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -219,6 +240,9 @@ incorporate all staged changes into an active state.</p>
                     <a name="//apple_ref/swift/Method/onRollback(transaction:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:FP12Transactions12Transactable10onRollbackFT11transactionVS_11Transaction_T_">onRollback(transaction:)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -230,6 +254,10 @@ incorporate all staged changes into an active state.</p>
 <p>This method is called when the transaction is being rolled back.  The transactable should
 discard any staged changes and reset its state.</p>
 
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -246,10 +274,10 @@ discard any staged changes and reset its state.</p>
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Default%20implementations"></a>
-                <a name="//apple_ref/swift/Section/Default implementations" class="dashAnchor"></a>
-                <a href="#/Default%20implementations">
-                  <h3 class="section-name">Default implementations</h3>
+                <a name="/Protocol%20extensions"></a>
+                <a name="//apple_ref/swift/Section/Protocol extensions" class="dashAnchor"></a>
+                <a href="#/Protocol%20extensions">
+                  <h3 class="section-name">Protocol extensions</h3>
                 </a>
               </div>
               <ul>
@@ -510,9 +538,9 @@ discard any staged changes and reset its state.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FE12TransactionsPS_12Transactable11transactionFzT18executeTransactionFzT_T__T_"></a>
-                    <a name="//apple_ref/swift/Method/transaction(executeTransaction:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FE12TransactionsPS_12Transactable11transactionFzT18executeTransactionFzT_T__T_">transaction(executeTransaction:)</a>
+                    <a name="/s:FE12TransactionsPS_12Transactable11transactionFzFzT_T_T_"></a>
+                    <a name="//apple_ref/swift/Method/transaction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FE12TransactionsPS_12Transactable11transactionFzFzT_T_T_">transaction(_:)</a>
                     </code>
                       <span class="declaration-note">
                         Extension method
@@ -523,7 +551,8 @@ discard any staged changes and reset its state.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Syntactical sugar used to form transactions.</p>
+                        <p>Syntactical sugar used to enclose transactions in the methods defined on <code>Transactable</code> 
+object.</p>
 
 <p>The execution sequence is:</p>
 
@@ -531,9 +560,26 @@ discard any staged changes and reset its state.</p>
 <li>Call <code><a href="../Protocols/Transactable.html#/s:FE12TransactionsPS_12Transactable16beginTransactionFzT_VS_11Transaction">beginTransaction()</a></code> method.</li>
 <li>Call argument closure <code>executeTransaction()</code>.</li>
 <li>If <code>executeTransaction()</code> does not throw any errors, call <code>commitTransaction()</code>.
-Otherwise, call <code>reollbackTransaction()</code> and rethrow the error that 
-<code>executeTransaction()</code> had thrown.</li>
+Otherwise, call <code>rollbackTransaction()</code> and rethrow any error that
+<code>executeTransaction()</code> might have thrown.</li>
 </ol>
+
+<p><strong>Example:</strong>
+<code>
+func doSomething() {
+    try transaction {
+        // your code here
+    }
+}
+</code></p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>It is possible to nest <code>transaction</code> blocks.  If a nesting method already had
+    started the transaction then nested method will apply updates as part of that 
+    transaction.</p>
+
+</div>
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
@@ -547,7 +593,7 @@ Otherwise, call <code>reollbackTransaction()</code> and rethrow the error that
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">transaction</span><span class="p">(</span><span class="nv">executeTransaction</span><span class="p">:</span> <span class="p">(</span><span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">transaction</span><span class="p">(</span><span class="n">_</span> <span class="nv">executeTransaction</span><span class="p">:</span> <span class="p">(</span><span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>

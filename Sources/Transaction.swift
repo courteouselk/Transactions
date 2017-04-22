@@ -12,7 +12,7 @@ import Foundation
 
 public struct Transaction : Equatable {
 
-    // MARK: - Static members
+    // MARK: - Static properties
 
     /// Wildcard transaction descriptor.
     ///
@@ -21,11 +21,13 @@ public struct Transaction : Equatable {
 
     public static let any = Transaction(id: UUID.zero)
 
-    // MARK: - Instance members
+    // MARK: - Instance properties
 
     /// Unique transaction id.
 
     public let id: UUID
+
+    // MARK: - Initialization
 
     private init(id: UUID) {
         self.id = id
@@ -41,7 +43,7 @@ public struct Transaction : Equatable {
         self.id = id
     }
 
-    // MARK: - Equatable
+    // MARK: - Operators
 
     public static func == (lhs: Transaction, rhs: Transaction) -> Bool {
         return lhs.id == rhs.id

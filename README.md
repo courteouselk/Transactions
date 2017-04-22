@@ -1,136 +1,119 @@
 # Transactions
 
-[![Swift 3.0](https://img.shields.io/badge/Swift-3.0-E9392C.svg?style=flat)](https://developer.apple.com/swift/)
+[![Swift 3.1](https://img.shields.io/badge/Swift-3.1-E9392C.svg?style=flat)](https://developer.apple.com/swift/)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Simple framework to facilicate the management of transactional changes to the model.
 
 The core of the framework is formed by `Transactable` protocol and `TransactionContext` helper class.
 
-**Example:**
+## An oversimplified example
 
-A type that can be managed by the framework should implement `Transactable` protocol.  Objects being managed should form a tree structure with a single object at the root (a.k.a. context root):
+**Library class**
 
 ````swift
 class Library : Transactable {
 
-    private var _transactionContext: TransactionContext? = nil
-
-    var transactionContext: TransactionContext {
-        return _transactionContext!
+    enum Error : Swift.Error {
+        case tooManyBooks(name: String)
     }
 
+    private (set) var books: [String: Book] = [:]
+    private var booksInTranaction: [String: Book] = [:]
+
+    private var _transactionContext: TransactionContext? = nil
+    var transactionContext: TransactionContext { return _transactionContext! }
+
     init() {
-        // Library object will be the transaction context root
         _transactionContext = TransactionContext.createRoot(owner: self)
     }
 
-    func onBegin(transaction: Transaction) {
-        // Prepare for new transaction    
+    func onBegin(transaction: Transaction) { booksInTranaction = books }
+
+    func onCommit(transaction: Transaction) { books = booksInTranaction }
+
+    func onRollback(transaction: Transaction) { booksInTranaction = [:] }
+
+    func add(book: Book) throws {
+        try transaction {
+            if let knownBook = booksInTranaction[book.name] {
+                try knownBook.add()
+            } else {
+                booksInTranaction[book.name] = book
+                try book.add()
+            }
+        }
     }
 
-    func onValidateCommit() throws {
-        // Verify the staged changes and simply return if they are Ok to commit, 
-        // otherwise throw an error
+    func list() {
+        books.values.forEach({ print("\"\($0.name)\" : \($0.count)") })
     }
 
-    func onCommit(transaction: Transaction) {
-        // Incorporate the staged changes into object's actual state
-    }
-
-    func onRollback(transaction: Transaction) {
-        // Discard staged changes
-    }
-    
 }
 ````
 
-Other objects will form the nodes of a tree (context nodes):
+**Book class**
 
 ````swift
 class Book : Transactable {
 
     unowned let library: Library
-
     let name: String
 
-    private var _transactionContext: TransactionContext? = nil
+    private (set) var count = 0
+    private var countInTransaction = 0
 
-    var transactionContext: TransactionContext {
-        return _transactionContext!
-    }
+    private var _transactionContext: TransactionContext? = nil
+    var transactionContext: TransactionContext { return _transactionContext! }
 
     init(library: Library, name: String) {
         self.library = library
         self.name = name
-
-        // Books in a library will be at transaction context nodes
         _transactionContext = TransactionContext.createNode(owner: self, parent: library)
     }
 
-    func onBegin(transaction: Transaction) {
-        // Prepare for new transaction    
-    }
+    func onBegin(transaction: Transaction) { countInTransaction = count }
+
+    func onCommit(transaction: Transaction) { count = countInTransaction }
+
+    func onRollback(transaction: Transaction) { countInTransaction = 0 }
 
     func onValidateCommit() throws {
-        // Verify the staged changes and simply return if they are Ok to commit, 
-        // otherwise throw an error
+        if countInTransaction > 2 {
+            throw Library.Error.tooManyBooks(name: name)
+        }
     }
 
-    func onCommit(transaction: Transaction) {
-        // Incorporate the staged changes into object's actual state
-    }
-
-    func onRollback(transaction: Transaction) {
-        // Discard staged changes
+    func add() throws {
+        try transaction { countInTransaction += 1 }
     }
 
 }
 ````
 
-Now, to put all that into use:
+**Result**
 
 ````swift
-import Transactions
+let library = Library()
+let book = Book(library: library, name: "Some book")
 
-let library = Library(name: "Main")
+do {
+    try library.add(book: book)
+    library.list()
+    try library.add(book: book)
+    library.list()
+    try library.add(book: book)
+    library.list()
+} catch {
+    print("Error: \(error)")
+}
 
-let bookA = Book(library: library, name: "A")
-let bookB = Book(library: library, name: "B")
+/* Playground prints:
 
-// No transaction is active
+   "Some book" : 1
+   "Some book" : 2
+   Error: tooManyBooks("Some book")
 
-assert(!library.transactionIsActive)
-assert(!bookA.transactionIsActive)
-assert(!bookB.transactionIsActive)
+ */
 
-assert(library.activeTransaction == nil)
-assert(bookA.activeTransaction == nil)
-assert(bookB.activeTransaction == nil)
-
-// Starting a transaction will trigger `onBegin` for everry object in the tree,
-// set the status of `transactionIsActive` to `true`, set `activeTransaction` to
-// the descriptor for the currently active transaction.
-
-let transaction = try! bookA.beginTransaction()
-
-assert(library.transactionIsActive)
-assert(bookA.transactionIsActive)
-assert(bookB.transactionIsActive)
-
-assert(library.activeTransaction == transaction)
-assert(bookA.activeTransaction == transaction)
-assert(bookB.activeTransaction == transaction)
-
-// Committing the transaction will also propagate through the whole tree
-
-try! bookB.commitTransaction()
-
-assert(!library.transactionIsActive)
-assert(!bookA.transactionIsActive)
-assert(!bookB.transactionIsActive)
-
-assert(library.activeTransaction == nil)
-assert(bookA.activeTransaction == nil)
-assert(bookB.activeTransaction == nil)
 ````

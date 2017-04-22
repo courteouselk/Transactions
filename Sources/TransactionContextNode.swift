@@ -10,15 +10,9 @@ import Foundation
 
 final class TransactionContextNode : TransactionContext {
 
-    override var activeTransaction: Transaction? {
-        return root.activeTransaction
-    }
-
+    override var activeTransaction: Transaction? { return root.activeTransaction }
     private unowned let _root: TransactionContextRoot
-
-    override var root: TransactionContextRoot {
-        return _root
-    }
+    override var root: TransactionContextRoot { return _root }
 
     // MARK: - Initialization
 

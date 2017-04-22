@@ -1,6 +1,10 @@
 # Change Log
 
-## [0.0.2](https://github.com/courteouselk/Transactions/compare/0.0.1...0.0.2) (unreleased)
+## [0.0.2](https://github.com/courteouselk/Transactions/compare/0.0.1...0.0.2)
+
+### New API
+
+- Methods declared on `Transactable` can now use `try transaction { \* do stuff *\ }` construct.
 
 ### Changed API
 

@@ -8,25 +8,19 @@
 
 import Foundation
 
-struct WeakWrapper<O: AnyObject> : Equatable, Hashable {
-
-    static func hashValue(_ object: O) -> Int {
-        // Better alternative for Unmanaged.passUnretained(object).toOpaque().hashValue
-        return ObjectIdentifier(object).hashValue
-    }
-
-    static func == (lhs: WeakWrapper, rhs: WeakWrapper) -> Bool {
-        // WeakWrapper reference wrappers are only equal if the instances they wrap are the same.
-        return lhs.object === rhs.object
-    }
+struct WeakWrapper<Object: AnyObject> : Equatable, Hashable {
 
     let hashValue: Int
 
-    private (set) public weak var object: O? = nil
+    private (set) weak var object: Object? = nil
 
-    init(_ object: O) {
+    init(_ object: Object) {
         self.object = object
-        self.hashValue = WeakWrapper.hashValue(object)
+        self.hashValue = ObjectIdentifier(object).hashValue
     }
     
+    static func == (lhs: WeakWrapper, rhs: WeakWrapper) -> Bool {
+        return lhs.object === rhs.object
+    }
+
 }

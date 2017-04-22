@@ -1,22 +1,22 @@
 //
-//  Test_InactiveTransaction.swift
+//  TransactionContextTests.swift
 //  Transactions
 //
-//  Created by Anton Bronnikov on 24/03/2017.
+//  Created by Anton Bronnikov on 22/04/2017.
 //  Copyright © 2017 Anton Bronnikov. All rights reserved.
 //
 
 import XCTest
 import Transactions
 
-class Test_InactiveTransaction : XCTestCase {
+class TransactionContextTests : XCTestCase {
 
     final var library: Library! = nil
     final var bookA: Book! = nil
     final var bookB: Book! = nil
     final var bookC: Book? = nil
 
-    final override func setUp() {
+    override func setUp() {
         library = Library(name: "Main")
         bookA = Book(library: library, name: "Design Patterns")
         bookB = Book(library: library, name: "Algorithms")
@@ -24,7 +24,7 @@ class Test_InactiveTransaction : XCTestCase {
         bookC = nil
     }
 
-    final override func tearDown() {
+    override func tearDown() {
         library = nil
         bookA = nil
         bookB = nil
@@ -33,37 +33,27 @@ class Test_InactiveTransaction : XCTestCase {
 
     // MARK: - Verify initial state
 
-    final func test_InitialState_ObjectStructureIsValid() {
+    func test_InitialState_ObjectStructureIsValid() {
         XCTAssertNotNil(library)
         XCTAssertNotNil(bookA)
         XCTAssertNotNil(bookB)
         XCTAssertNil(bookC)
     }
 
-    final func test_InitialState_CountersAreZero() {
+    func test_InitialState_CountersAreZero() {
         XCTAssertEqual(library.beginCount, 0)
         XCTAssertEqual(library.commitCount, 0)
         XCTAssertEqual(library.rollbackCount, 0)
+        XCTAssertEqual(library.transactionClosureCount, 0)
 
         XCTAssertEqual(bookA.beginCount, 0)
         XCTAssertEqual(bookA.commitCount, 0)
         XCTAssertEqual(bookA.rollbackCount, 0)
+        XCTAssertEqual(bookA.transactionClosureCount, 0)
 
         XCTAssertEqual(bookB.beginCount, 0)
         XCTAssertEqual(bookB.commitCount, 0)
         XCTAssertEqual(bookB.rollbackCount, 0)
+        XCTAssertEqual(bookB.transactionClosureCount, 0)
     }
-
-    final func test_InitialState_ContextsAreInactive() {
-        XCTAssertFalse(library.transactionIsActive)
-        XCTAssertFalse(bookA.transactionIsActive)
-        XCTAssertFalse(bookB.transactionIsActive)
-    }
-
-    final func test_InitialState_ContextTransactionsAreNil() {
-        XCTAssertNil(library.transactionContext.activeTransaction)
-        XCTAssertNil(bookA.transactionContext.activeTransaction)
-        XCTAssertNil(bookB.transactionContext.activeTransaction)
-    }
-
 }

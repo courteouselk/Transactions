@@ -67,133 +67,115 @@
             
             <a href='#transactions' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='transactions'>Transactions</h1>
 
-<p><a href="https://developer.apple.com/swift/"><img src="https://img.shields.io/badge/Swift-3.0-E9392C.svg?style=flat" alt="Swift 3.0"></a>
+<p><a href="https://developer.apple.com/swift/"><img src="https://img.shields.io/badge/Swift-3.1-E9392C.svg?style=flat" alt="Swift 3.1"></a>
 <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible"></a></p>
 
 <p>Simple framework to facilicate the management of transactional changes to the model.</p>
 
 <p>The core of the framework is formed by <code>Transactable</code> protocol and <code>TransactionContext</code> helper class.</p>
+<a href='#an-oversimplified-example' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='an-oversimplified-example'>An oversimplified example</h2>
 
-<p><strong>Example:</strong></p>
-
-<p>A type that can be managed by the framework should implement <code>Transactable</code> protocol.  Objects being managed should form a tree structure with a single object at the root (a.k.a. context root):</p>
+<p><strong>Library class</strong></p>
 <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Library</span> <span class="p">:</span> <span class="kt">Transactable</span> <span class="p">{</span>
 
-    <span class="kd">private</span> <span class="k">var</span> <span class="nv">_transactionContext</span><span class="p">:</span> <span class="kt">TransactionContext</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
-
-    <span class="k">var</span> <span class="nv">transactionContext</span><span class="p">:</span> <span class="kt">TransactionContext</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="n">_transactionContext</span><span class="o">!</span>
+    <span class="kd">enum</span> <span class="kt">Error</span> <span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="nf">tooManyBooks</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
     <span class="p">}</span>
 
+    <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">books</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Book</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:]</span>
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">booksInTranaction</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Book</span><span class="p">]</span> <span class="o">=</span> <span class="p">[:]</span>
+
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">_transactionContext</span><span class="p">:</span> <span class="kt">TransactionContext</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+    <span class="k">var</span> <span class="nv">transactionContext</span><span class="p">:</span> <span class="kt">TransactionContext</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_transactionContext</span><span class="o">!</span> <span class="p">}</span>
+
     <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
-        <span class="c1">// Library object will be the transaction context root</span>
         <span class="n">_transactionContext</span> <span class="o">=</span> <span class="kt">TransactionContext</span><span class="o">.</span><span class="nf">createRoot</span><span class="p">(</span><span class="nv">owner</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="kd">func</span> <span class="nf">onBegin</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Prepare for new transaction    </span>
+    <span class="kd">func</span> <span class="nf">onBegin</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span> <span class="n">booksInTranaction</span> <span class="o">=</span> <span class="n">books</span> <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">onCommit</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span> <span class="n">books</span> <span class="o">=</span> <span class="n">booksInTranaction</span> <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">onRollback</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span> <span class="n">booksInTranaction</span> <span class="o">=</span> <span class="p">[:]</span> <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="nv">book</span><span class="p">:</span> <span class="kt">Book</span><span class="p">)</span> <span class="k">throws</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="n">transaction</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="k">let</span> <span class="nv">knownBook</span> <span class="o">=</span> <span class="n">booksInTranaction</span><span class="p">[</span><span class="n">book</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="p">{</span>
+                <span class="k">try</span> <span class="n">knownBook</span><span class="o">.</span><span class="nf">add</span><span class="p">()</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">booksInTranaction</span><span class="p">[</span><span class="n">book</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">book</span>
+                <span class="k">try</span> <span class="n">book</span><span class="o">.</span><span class="nf">add</span><span class="p">()</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
 
-    <span class="kd">func</span> <span class="nf">onValidateCommit</span><span class="p">()</span> <span class="k">throws</span> <span class="p">{</span>
-        <span class="c1">// Verify the staged changes and simply return if they are Ok to commit, </span>
-        <span class="c1">// otherwise throw an error</span>
-    <span class="p">}</span>
-
-    <span class="kd">func</span> <span class="nf">onCommit</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Incorporate the staged changes into object's actual state</span>
-    <span class="p">}</span>
-
-    <span class="kd">func</span> <span class="nf">onRollback</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Discard staged changes</span>
+    <span class="kd">func</span> <span class="nf">list</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">books</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="nf">forEach</span><span class="p">({</span> <span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\"\(</span><span class="nv">$0</span><span class="o">.</span><span class="n">name</span><span class="se">)\"</span><span class="s"> : </span><span class="se">\(</span><span class="nv">$0</span><span class="o">.</span><span class="n">count</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="p">})</span>
     <span class="p">}</span>
 
 <span class="p">}</span>
 </code></pre>
 
-<p>Other objects will form the nodes of a tree (context nodes):</p>
+<p><strong>Book class</strong></p>
 <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Book</span> <span class="p">:</span> <span class="kt">Transactable</span> <span class="p">{</span>
 
     <span class="k">unowned</span> <span class="k">let</span> <span class="nv">library</span><span class="p">:</span> <span class="kt">Library</span>
-
     <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
 
-    <span class="kd">private</span> <span class="k">var</span> <span class="nv">_transactionContext</span><span class="p">:</span> <span class="kt">TransactionContext</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+    <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">countInTransaction</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="k">var</span> <span class="nv">transactionContext</span><span class="p">:</span> <span class="kt">TransactionContext</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="n">_transactionContext</span><span class="o">!</span>
-    <span class="p">}</span>
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">_transactionContext</span><span class="p">:</span> <span class="kt">TransactionContext</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+    <span class="k">var</span> <span class="nv">transactionContext</span><span class="p">:</span> <span class="kt">TransactionContext</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_transactionContext</span><span class="o">!</span> <span class="p">}</span>
 
     <span class="nf">init</span><span class="p">(</span><span class="nv">library</span><span class="p">:</span> <span class="kt">Library</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">self</span><span class="o">.</span><span class="n">library</span> <span class="o">=</span> <span class="n">library</span>
         <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-
-        <span class="c1">// Books in a library will be at transaction context nodes</span>
         <span class="n">_transactionContext</span> <span class="o">=</span> <span class="kt">TransactionContext</span><span class="o">.</span><span class="nf">createNode</span><span class="p">(</span><span class="nv">owner</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">parent</span><span class="p">:</span> <span class="n">library</span><span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="kd">func</span> <span class="nf">onBegin</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Prepare for new transaction    </span>
-    <span class="p">}</span>
+    <span class="kd">func</span> <span class="nf">onBegin</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span> <span class="n">countInTransaction</span> <span class="o">=</span> <span class="n">count</span> <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">onCommit</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span> <span class="n">count</span> <span class="o">=</span> <span class="n">countInTransaction</span> <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">onRollback</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span> <span class="n">countInTransaction</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">}</span>
 
     <span class="kd">func</span> <span class="nf">onValidateCommit</span><span class="p">()</span> <span class="k">throws</span> <span class="p">{</span>
-        <span class="c1">// Verify the staged changes and simply return if they are Ok to commit, </span>
-        <span class="c1">// otherwise throw an error</span>
+        <span class="k">if</span> <span class="n">countInTransaction</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="kt">Library</span><span class="o">.</span><span class="kt">Error</span><span class="o">.</span><span class="nf">tooManyBooks</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="n">name</span><span class="p">)</span>
+        <span class="p">}</span>
     <span class="p">}</span>
 
-    <span class="kd">func</span> <span class="nf">onCommit</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Incorporate the staged changes into object's actual state</span>
-    <span class="p">}</span>
-
-    <span class="kd">func</span> <span class="nf">onRollback</span><span class="p">(</span><span class="nv">transaction</span><span class="p">:</span> <span class="kt">Transaction</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Discard staged changes</span>
+    <span class="kd">func</span> <span class="nf">add</span><span class="p">()</span> <span class="k">throws</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="n">transaction</span> <span class="p">{</span> <span class="n">countInTransaction</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">}</span>
     <span class="p">}</span>
 
 <span class="p">}</span>
 </code></pre>
 
-<p>Now, to put all that into use:</p>
-<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">Transactions</span>
+<p><strong>Result</strong></p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">library</span> <span class="o">=</span> <span class="kt">Library</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">book</span> <span class="o">=</span> <span class="kt">Book</span><span class="p">(</span><span class="nv">library</span><span class="p">:</span> <span class="n">library</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="s">"Some book"</span><span class="p">)</span>
 
-<span class="k">let</span> <span class="nv">library</span> <span class="o">=</span> <span class="kt">Library</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Main"</span><span class="p">)</span>
+<span class="k">do</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="n">library</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="nv">book</span><span class="p">:</span> <span class="n">book</span><span class="p">)</span>
+    <span class="n">library</span><span class="o">.</span><span class="nf">list</span><span class="p">()</span>
+    <span class="k">try</span> <span class="n">library</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="nv">book</span><span class="p">:</span> <span class="n">book</span><span class="p">)</span>
+    <span class="n">library</span><span class="o">.</span><span class="nf">list</span><span class="p">()</span>
+    <span class="k">try</span> <span class="n">library</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="nv">book</span><span class="p">:</span> <span class="n">book</span><span class="p">)</span>
+    <span class="n">library</span><span class="o">.</span><span class="nf">list</span><span class="p">()</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"Error: </span><span class="se">\(</span><span class="n">error</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span>
 
-<span class="k">let</span> <span class="nv">bookA</span> <span class="o">=</span> <span class="kt">Book</span><span class="p">(</span><span class="nv">library</span><span class="p">:</span> <span class="n">library</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="s">"A"</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">bookB</span> <span class="o">=</span> <span class="kt">Book</span><span class="p">(</span><span class="nv">library</span><span class="p">:</span> <span class="n">library</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="s">"B"</span><span class="p">)</span>
+<span class="cm">/* Playground prints:
 
-<span class="c1">// No transaction is active</span>
+   "Some book" : 1
+   "Some book" : 2
+   Error: tooManyBooks("Some book")
 
-<span class="nf">assert</span><span class="p">(</span><span class="o">!</span><span class="n">library</span><span class="o">.</span><span class="n">transactionIsActive</span><span class="p">)</span>
-<span class="nf">assert</span><span class="p">(</span><span class="o">!</span><span class="n">bookA</span><span class="o">.</span><span class="n">transactionIsActive</span><span class="p">)</span>
-<span class="nf">assert</span><span class="p">(</span><span class="o">!</span><span class="n">bookB</span><span class="o">.</span><span class="n">transactionIsActive</span><span class="p">)</span>
+ */</span>
 
-<span class="nf">assert</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">activeTransaction</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>
-<span class="nf">assert</span><span class="p">(</span><span class="n">bookA</span><span class="o">.</span><span class="n">activeTransaction</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>
-<span class="nf">assert</span><span class="p">(</span><span class="n">bookB</span><span class="o">.</span><span class="n">activeTransaction</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>
-
-<span class="c1">// Starting a transaction will trigger `onBegin` for everry object in the tree,</span>
-<span class="c1">// set the status of `transactionIsActive` to `true`, set `activeTransaction` to</span>
-<span class="c1">// the descriptor for the currently active transaction.</span>
-
-<span class="k">let</span> <span class="nv">transaction</span> <span class="o">=</span> <span class="k">try!</span> <span class="n">bookA</span><span class="o">.</span><span class="nf">beginTransaction</span><span class="p">()</span>
-
-<span class="nf">assert</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">transactionIsActive</span><span class="p">)</span>
-<span class="nf">assert</span><span class="p">(</span><span class="n">bookA</span><span class="o">.</span><span class="n">transactionIsActive</span><span class="p">)</span>
-<span class="nf">assert</span><span class="p">(</span><span class="n">bookB</span><span class="o">.</span><span class="n">transactionIsActive</span><span class="p">)</span>
-
-<span class="nf">assert</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">activeTransaction</span> <span class="o">==</span> <span class="n">transaction</span><span class="p">)</span>
-<span class="nf">assert</span><span class="p">(</span><span class="n">bookA</span><span class="o">.</span><span class="n">activeTransaction</span> <span class="o">==</span> <span class="n">transaction</span><span class="p">)</span>
-<span class="nf">assert</span><span class="p">(</span><span class="n">bookB</span><span class="o">.</span><span class="n">activeTransaction</span> <span class="o">==</span> <span class="n">transaction</span><span class="p">)</span>
-
-<span class="c1">// Committing the transaction will also propagate through the whole tree</span>
-
-<span class="k">try!</span> <span class="n">bookB</span><span class="o">.</span><span class="nf">commitTransaction</span><span class="p">()</span>
-
-<span class="nf">assert</span><span class="p">(</span><span class="o">!</span><span class="n">library</span><span class="o">.</span><span class="n">transactionIsActive</span><span class="p">)</span>
-<span class="nf">assert</span><span class="p">(</span><span class="o">!</span><span class="n">bookA</span><span class="o">.</span><span class="n">transactionIsActive</span><span class="p">)</span>
-<span class="nf">assert</span><span class="p">(</span><span class="o">!</span><span class="n">bookB</span><span class="o">.</span><span class="n">transactionIsActive</span><span class="p">)</span>
-
-<span class="nf">assert</span><span class="p">(</span><span class="n">library</span><span class="o">.</span><span class="n">activeTransaction</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>
-<span class="nf">assert</span><span class="p">(</span><span class="n">bookA</span><span class="o">.</span><span class="n">activeTransaction</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>
-<span class="nf">assert</span><span class="p">(</span><span class="n">bookB</span><span class="o">.</span><span class="n">activeTransaction</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">)</span>
 </code></pre>
 
           </section>

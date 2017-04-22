@@ -11,14 +11,8 @@ import Foundation
 final class TransactionContextRoot : TransactionContext {
 
     private var _transaction: Transaction? = nil
-
-    override var activeTransaction: Transaction? {
-        return _transaction
-    }
-
-    override var root: TransactionContextRoot {
-        return self
-    }
+    override var activeTransaction: Transaction? { return _transaction }
+    override var root: TransactionContextRoot { return self }
 
     // MARK: - Transaction management
 

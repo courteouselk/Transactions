@@ -49,21 +49,29 @@ public protocol Transactable : AnyObject {
     /// discard any staged changes and reset its state.
 
     func onRollback(transaction: Transaction)
-    
+
 }
 
-extension Transactable {
+public extension Transactable {
 
     // MARK: Default implementations
+
+    func onBegin(transaction: Transaction) { }
+
+    func onValidateCommit() throws { }
+
+    func onCommit(transaction: Transaction) { }
+
+    func onRollback(transaction: Transaction) { }
+
+    // MARK: Protocol extensions
 
     /// Indicates whether the transaction is currently active.
     ///
     /// - important: This property is not supposed to be implemented by the adopting class.
     ///              Please use the default implementation.
 
-    public var transactionIsActive: Bool {
-        return transactionContext.transactionIsActive
-    }
+    public var transactionIsActive: Bool { return transactionContext.transactionIsActive }
 
     /// Currently active transaction.
     ///
@@ -72,9 +80,7 @@ extension Transactable {
     /// - important: This property is not supposed to be implemented by the adopting class.
     ///              Please use the default implementation.
 
-    public var activeTransaction: Transaction? {
-        return transactionContext.activeTransaction
-    }
+    public var activeTransaction: Transaction? { return transactionContext.activeTransaction }
 
     /// Begin a new transaction.
     ///
@@ -125,7 +131,8 @@ extension Transactable {
         try transactionContext.rollbackTransaction(transaction)
     }
 
-    /// Syntactical sugar used to form transactions.
+    /// Syntactical sugar used to enclose transactions in the methods defined on `Transactable` 
+    /// object.
     ///
     /// The execution sequence is:
     /// 
@@ -135,23 +142,38 @@ extension Transactable {
     ///    Otherwise, call `rollbackTransaction()` and rethrow any error that
     ///    `executeTransaction()` might have thrown.
     ///
+    /// **Example:**
+    /// ````
+    /// func doSomething() {
+    ///     try transaction {
+    ///         // your code here
+    ///     }
+    /// }
+    /// ````
+    ///
+    /// - note: It is possible to nest `transaction` blocks.  If a nesting method already had
+    ///         started the transaction then nested method will apply updates as part of that 
+    ///         transaction.
+    ///
     /// - parameters:
     ///   - executeTransaction: Closure that encapsulated the body of the transaction.
     ///
     /// - throws: Any error that `executeTransaction`, `beginTransaction`, `commitTransaction`, or
     ///           `rollbackTransaction` might throw.
 
-    public func transaction(executeTransaction: (Void) throws -> Void) throws {
-        try beginTransaction()
-
-        do {
+    public func transaction(_ executeTransaction: (Void) throws -> Void) throws {
+        if transactionContext.transactionIsActive {
             try executeTransaction()
-        } catch {
-            try rollbackTransaction()
-            throw error
+        } else {
+            try transactionContext.beginTransaction()
+            do {
+                try executeTransaction()
+            } catch {
+                try transactionContext.rollbackTransaction()
+                throw error
+            }
+            try transactionContext.commitTransaction()
         }
-
-        try commitTransaction()
     }
 
 }

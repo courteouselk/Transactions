@@ -24,26 +24,20 @@ public class TransactionContext {
 
     /// Indicates whether the transaction is currently active.
 
-    final public var transactionIsActive: Bool {
-        return activeTransaction != nil
-    }
+    final public var transactionIsActive: Bool { return activeTransaction != nil }
 
     /// Currently active transaction.
     ///
     /// If no transaction is active the value is `nil`.
 
-    public var activeTransaction: Transaction? {
-        fatalError()
-    }
+    public var activeTransaction: Transaction? { mustOverride() }
 
     // MARK: -
 
-    unowned let owner: Transactable
-
-    var root: TransactionContextRoot { fatalError() }
-
     typealias WrappedContextNode = WeakWrapper<TransactionContextNode>
 
+    unowned let owner: Transactable
+    var root: TransactionContextRoot { mustOverride() }
     private var children: Set<WrappedContextNode> = []
 
     // MARK: - Initialization
@@ -81,7 +75,7 @@ public class TransactionContext {
     /// - returns: The descriptor for a newly started transaction.
 
     @discardableResult public func beginTransaction() throws -> Transaction {
-        fatalError()
+        mustOverride()
     }
 
     /// Commit the transaction.
@@ -96,7 +90,7 @@ public class TransactionContext {
     ///                  actually active one.  If they do not match, an error is thrown.
 
     public func commitTransaction(_ transaction: Transaction = Transaction.any) throws {
-        fatalError()
+        mustOverride()
     }
 
     /// Rollback the transaction.
@@ -110,7 +104,7 @@ public class TransactionContext {
     ///                  actually active one.  If they do not match, an error is thrown.
 
     public func rollbackTransaction(_ transaction: Transaction = Transaction.any) throws {
-        fatalError()
+        mustOverride()
     }
 
     // MARK: -

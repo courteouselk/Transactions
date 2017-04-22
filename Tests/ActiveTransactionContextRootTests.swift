@@ -1,5 +1,5 @@
 //
-//  Test_ActiveTransaction_RootContext.swift
+//  ActiveTransactionContextRootTests.swift
 //  Transactions
 //
 //  Created by Anton Bronnikov on 28/03/2017.
@@ -9,7 +9,7 @@
 import XCTest
 import Transactions
 
-class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
+class ActiveTransactionContextRootTests : ActiveTransactionContextTests {
 
     // MARK: - Begin transaction
 
@@ -300,6 +300,124 @@ class Test_ActiveTransaction_RootContext : Test_ActiveTransaction {
         XCTAssertEqual(library.rollbackCount, 1)
         XCTAssertEqual(bookA.rollbackCount, 1)
         XCTAssertEqual(bookB.rollbackCount, 1)
+    }
+
+    // MARK: - Transaction closure
+
+    func test_SuccesfulTransactionClosure_DoesNotThrow() {
+        do {
+            try library.doTransactionClosure()
+        } catch {
+            XCTFail("Should not throw, but thrown \(error) instead")
+        }
+    }
+
+    func test_SuccesfulTransactionClosure_DoesNotChangeTransactionStatus() {
+        try! library.doTransactionClosure()
+
+        XCTAssertEqual(library.beginCount, 0)
+        XCTAssertEqual(bookA.beginCount, 0)
+        XCTAssertEqual(bookB.beginCount, 0)
+
+        XCTAssertEqual(library.commitCount, 0)
+        XCTAssertEqual(bookA.commitCount, 0)
+        XCTAssertEqual(bookB.commitCount, 0)
+
+        XCTAssertEqual(library.rollbackCount, 0)
+        XCTAssertEqual(bookA.rollbackCount, 0)
+        XCTAssertEqual(bookB.rollbackCount, 0)
+
+        XCTAssertEqual(library.transactionClosureCount, 1)
+        XCTAssertEqual(bookA.transactionClosureCount, 0)
+        XCTAssertEqual(bookB.transactionClosureCount, 0)
+    }
+
+    func test_SuccesfulNestingTransactionClosures_DoNotThrow() {
+        do {
+            try library.doNestingTranscationClosure()
+        } catch {
+            XCTFail("Should not throw, but thrown \(error) instead")
+        }
+    }
+
+    func test_SuccesfulNestingTransactionClosures_DoNotChangeTransactionStatus() {
+        try! library.doNestingTranscationClosure()
+
+        XCTAssertEqual(library.beginCount, 0)
+        XCTAssertEqual(bookA.beginCount, 0)
+        XCTAssertEqual(bookB.beginCount, 0)
+
+        XCTAssertEqual(library.commitCount, 0)
+        XCTAssertEqual(bookA.commitCount, 0)
+        XCTAssertEqual(bookB.commitCount, 0)
+
+        XCTAssertEqual(library.rollbackCount, 0)
+        XCTAssertEqual(bookA.rollbackCount, 0)
+        XCTAssertEqual(bookB.rollbackCount, 0)
+
+        XCTAssertEqual(library.transactionClosureCount, 1)
+        XCTAssertEqual(bookA.transactionClosureCount, 0)
+        XCTAssertEqual(bookB.transactionClosureCount, 0)
+    }
+
+    // MARK: -
+
+    func test_FailingTransactionClosure_Throws() {
+        XCTAssertThrowsError(try self.library.doTransactionClosureThatThrows()) {
+            guard let error = $0 as? LibraryError else {
+                XCTFail("Must throw LibraryError, but thrown \(type(of: $0)) instead"); return
+            }
+            XCTAssertEqual(error, LibraryError.someError)
+        }
+    }
+
+    func test_FailingTransactionClosure_DoesNotChangeTransactionStatus() {
+        do { try library.doTransactionClosureThatThrows() } catch { }
+
+        XCTAssertEqual(library.beginCount, 0)
+        XCTAssertEqual(bookA.beginCount, 0)
+        XCTAssertEqual(bookB.beginCount, 0)
+
+        XCTAssertEqual(library.commitCount, 0)
+        XCTAssertEqual(bookA.commitCount, 0)
+        XCTAssertEqual(bookB.commitCount, 0)
+
+        XCTAssertEqual(library.rollbackCount, 0)
+        XCTAssertEqual(bookA.rollbackCount, 0)
+        XCTAssertEqual(bookB.rollbackCount, 0)
+
+        XCTAssertEqual(library.transactionClosureCount, 0)
+        XCTAssertEqual(bookA.transactionClosureCount, 0)
+        XCTAssertEqual(bookB.transactionClosureCount, 0)
+    }
+
+    func test_FailingNestingTransactionClosure_Throws() {
+        XCTAssertThrowsError(try self.library.doNestingTranscationClosureThatThrows()) {
+            guard let error = $0 as? LibraryError else {
+                XCTFail("Must throw LibraryError, but thrown \(type(of: $0)) instead"); return
+            }
+            XCTAssertEqual(error, LibraryError.someError)
+        }
+    }
+
+    func test_FailingNestingTransactionClosure_DoNotChangeTransactionStatus() {
+        do { try library.doNestingTranscationClosureThatThrows() } catch { }
+
+        XCTAssertEqual(library.beginCount, 0)
+        XCTAssertEqual(bookA.beginCount, 0)
+        XCTAssertEqual(bookB.beginCount, 0)
+
+        XCTAssertEqual(library.commitCount, 0)
+        XCTAssertEqual(bookA.commitCount, 0)
+        XCTAssertEqual(bookB.commitCount, 0)
+
+        XCTAssertEqual(library.rollbackCount, 0)
+        XCTAssertEqual(bookA.rollbackCount, 0)
+        XCTAssertEqual(bookB.rollbackCount, 0)
+
+        XCTAssertEqual(library.transactionClosureCount, 0)
+        XCTAssertEqual(bookA.transactionClosureCount, 0)
+        XCTAssertEqual(bookB.transactionClosureCount, 0)
     }
 
 }
