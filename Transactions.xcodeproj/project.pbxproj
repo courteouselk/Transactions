@@ -15,6 +15,7 @@
 		BA1364821E85D0DC00A1CC07 /* Transactions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA5EB1661E83AECB00DAEB37 /* Transactions.framework */; };
 		BA13648B1E85D25300A1CC07 /* InactiveTransactionContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA13648A1E85D25300A1CC07 /* InactiveTransactionContextTests.swift */; };
 		BA13648C1E85D25300A1CC07 /* InactiveTransactionContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA13648A1E85D25300A1CC07 /* InactiveTransactionContextTests.swift */; };
+		BA2B0A2E1EAF215300085A70 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = BA2B0A2D1EAF215300085A70 /* LICENSE */; };
 		BA48A5401EABB66800C7D6D4 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48A53F1EABB66800C7D6D4 /* Global.swift */; };
 		BA48A5411EABB66800C7D6D4 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48A53F1EABB66800C7D6D4 /* Global.swift */; };
 		BA555F691E8F78BE00CA3D5A /* LibraryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA555F681E8F78BE00CA3D5A /* LibraryError.swift */; };
@@ -76,6 +77,7 @@
 		BA13647D1E85D0DC00A1CC07 /* TransactionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransactionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA1364811E85D0DC00A1CC07 /* InfoTests-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InfoTests-iOS.plist"; sourceTree = "<group>"; };
 		BA13648A1E85D25300A1CC07 /* InactiveTransactionContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InactiveTransactionContextTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BA2B0A2D1EAF215300085A70 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		BA48A53F1EABB66800C7D6D4 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		BA555F681E8F78BE00CA3D5A /* LibraryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryError.swift; sourceTree = "<group>"; };
 		BA5EB1481E83A60F00DAEB37 /* Transactions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Transactions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,6 +202,7 @@
 		BA5EB1561E83AC3B00DAEB37 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
+				BA2B0A2D1EAF215300085A70 /* LICENSE */,
 				BA5EB15E1E83AE3B00DAEB37 /* README.md */,
 				BA5EB1601E83AE4C00DAEB37 /* CHANGELOG.md */,
 			);
@@ -434,6 +437,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA2B0A2E1EAF215300085A70 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
