@@ -26,6 +26,8 @@
 		BA5EB16A1E83AECB00DAEB37 /* Transactions-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = BA5EB1681E83AECB00DAEB37 /* Transactions-iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA5EB16F1E83BAD600DAEB37 /* Transactable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5EB16E1E83BAD600DAEB37 /* Transactable.swift */; };
 		BA5EB1711E83BCEE00DAEB37 /* TransactionContextRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5EB1701E83BCEE00DAEB37 /* TransactionContextRoot.swift */; };
+		BA86A2551EB110CF00AE9BAB /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA86A2521EB1101000AE9BAB /* Volume.swift */; };
+		BA86A2561EB110D000AE9BAB /* Volume.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA86A2521EB1101000AE9BAB /* Volume.swift */; };
 		BAAE967F1E89C6BF008EB56F /* InactiveTransactionContextRootTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAE967E1E89C6BF008EB56F /* InactiveTransactionContextRootTests.swift */; };
 		BAAE96801E89C6BF008EB56F /* InactiveTransactionContextRootTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAE967E1E89C6BF008EB56F /* InactiveTransactionContextRootTests.swift */; };
 		BAD1BC351E89C7BB002B898D /* InactiveTransactionContextNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD1BC341E89C7BB002B898D /* InactiveTransactionContextNodeTests.swift */; };
@@ -78,6 +80,7 @@
 		BA1364811E85D0DC00A1CC07 /* InfoTests-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InfoTests-iOS.plist"; sourceTree = "<group>"; };
 		BA13648A1E85D25300A1CC07 /* InactiveTransactionContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InactiveTransactionContextTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BA2B0A2D1EAF215300085A70 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		BA2B0A2F1EB07BE800085A70 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		BA48A53F1EABB66800C7D6D4 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		BA555F681E8F78BE00CA3D5A /* LibraryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryError.swift; sourceTree = "<group>"; };
 		BA5EB1481E83A60F00DAEB37 /* Transactions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Transactions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +95,7 @@
 		BA5EB1691E83AECB00DAEB37 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		BA5EB16E1E83BAD600DAEB37 /* Transactable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transactable.swift; sourceTree = "<group>"; };
 		BA5EB1701E83BCEE00DAEB37 /* TransactionContextRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionContextRoot.swift; sourceTree = "<group>"; };
+		BA86A2521EB1101000AE9BAB /* Volume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Volume.swift; sourceTree = "<group>"; };
 		BAAE967E1E89C6BF008EB56F /* InactiveTransactionContextRootTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InactiveTransactionContextRootTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BAD1BC341E89C7BB002B898D /* InactiveTransactionContextNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InactiveTransactionContextNodeTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BAD1BC371E8A3CB3002B898D /* ActiveTransactionContextRootTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ActiveTransactionContextRootTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -205,6 +209,7 @@
 				BA2B0A2D1EAF215300085A70 /* LICENSE */,
 				BA5EB15E1E83AE3B00DAEB37 /* README.md */,
 				BA5EB1601E83AE4C00DAEB37 /* CHANGELOG.md */,
+				BA2B0A2F1EB07BE800085A70 /* TODO.md */,
 			);
 			name = Documentation;
 			sourceTree = "<group>";
@@ -269,6 +274,7 @@
 				BA555F681E8F78BE00CA3D5A /* LibraryError.swift */,
 				BAF680421E866D4B00FBE39F /* Library.swift */,
 				BAF680451E866DAF00FBE39F /* Book.swift */,
+				BA86A2521EB1101000AE9BAB /* Volume.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -463,6 +469,7 @@
 				BA082C2F1EAB64CB00CB11EC /* TransactionContextTests.swift in Sources */,
 				BAD1BC381E8A3CB3002B898D /* ActiveTransactionContextRootTests.swift in Sources */,
 				BAF680461E866DAF00FBE39F /* Book.swift in Sources */,
+				BA86A2551EB110CF00AE9BAB /* Volume.swift in Sources */,
 				BAD1BC3B1E8A3F81002B898D /* ActiveTransactionContextNodeTests.swift in Sources */,
 				BA13648B1E85D25300A1CC07 /* InactiveTransactionContextTests.swift in Sources */,
 			);
@@ -480,6 +487,7 @@
 				BA082C301EAB64CB00CB11EC /* TransactionContextTests.swift in Sources */,
 				BAD1BC391E8A3CB3002B898D /* ActiveTransactionContextRootTests.swift in Sources */,
 				BAF680471E866DAF00FBE39F /* Book.swift in Sources */,
+				BA86A2561EB110D000AE9BAB /* Volume.swift in Sources */,
 				BAD1BC3C1E8A3F81002B898D /* ActiveTransactionContextNodeTests.swift in Sources */,
 				BA13648C1E85D25300A1CC07 /* InactiveTransactionContextTests.swift in Sources */,
 			);

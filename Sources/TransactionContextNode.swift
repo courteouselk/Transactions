@@ -17,11 +17,17 @@ final class TransactionContextNode : TransactionContext {
     // MARK: - Initialization
 
     init(owner: Transactable, parent: Transactable) {
-        _root = parent.transactionContext.root
+        let parentTransactionContext = parent.transactionContext
+
+        _root = parentTransactionContext.root
 
         super.init(owner: owner)
 
-        parent.transactionContext.register(node: self)
+        parentTransactionContext.register(node: self)
+
+        if parentTransactionContext.transactionIsActive {
+            propagateTransactionBegin()
+        }
     }
 
     // MARK: - Transaction management

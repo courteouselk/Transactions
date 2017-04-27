@@ -17,10 +17,10 @@ class TransactionContextTests : XCTestCase {
     final var bookC: Book? = nil
 
     override func setUp() {
-        library = Library(name: "Main")
-        bookA = Book(library: library, name: "Design Patterns")
-        bookB = Book(library: library, name: "Algorithms")
-        bookC = Book(library: library, name: "Marketing")
+        library = Library(name: "Library")
+        bookA = Book(library: library, name: "Book A")
+        bookB = Book(library: library, name: "Book B")
+        bookC = Book(library: library, name: "Book C")
         bookC = nil
     }
 

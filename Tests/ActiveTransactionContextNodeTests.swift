@@ -420,4 +420,41 @@ class ActiveTransactionContextNodeTests : ActiveTransactionContextTests {
         XCTAssertEqual(bookB.transactionClosureCount, 0)
     }
 
+    // MARK: - Add new transaction-context node
+
+    func test_RegisterNode_TriggersOnBegin() {
+        let bookD = Book(library: library, name: "Book D")
+        let volume1 = Volume(book: bookD, name: "Volume 1")
+        let volume2 = Volume(book: bookD, name: "Volume 2")
+
+        XCTAssertEqual(library.beginCount, 0)
+        XCTAssertEqual(bookA.beginCount, 0)
+        XCTAssertEqual(bookB.beginCount, 0)
+        XCTAssertEqual(bookD.beginCount, 1)
+        XCTAssertEqual(volume1.beginCount, 1)
+        XCTAssertEqual(volume2.beginCount, 1)
+
+        XCTAssertEqual(library.commitCount, 0)
+        XCTAssertEqual(bookA.commitCount, 0)
+        XCTAssertEqual(bookB.commitCount, 0)
+        XCTAssertEqual(bookD.commitCount, 0)
+        XCTAssertEqual(volume1.commitCount, 0)
+        XCTAssertEqual(volume2.commitCount, 0)
+
+        XCTAssertEqual(library.rollbackCount, 0)
+        XCTAssertEqual(bookA.rollbackCount, 0)
+        XCTAssertEqual(bookB.rollbackCount, 0)
+        XCTAssertEqual(bookD.commitCount, 0)
+        XCTAssertEqual(volume1.commitCount, 0)
+        XCTAssertEqual(volume2.commitCount, 0)
+
+        XCTAssertEqual(library.transactionClosureCount, 0)
+        XCTAssertEqual(bookA.transactionClosureCount, 0)
+        XCTAssertEqual(bookB.transactionClosureCount, 0)
+        XCTAssertEqual(bookD.commitCount, 0)
+        XCTAssertEqual(volume1.commitCount, 0)
+        XCTAssertEqual(volume2.commitCount, 0)
+    }
+
+
 }
