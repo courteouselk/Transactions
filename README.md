@@ -1,7 +1,11 @@
 # Transactions
 
+[![License](https://img.shields.io/github/license/courteouselk/Transactions.svg?maxAge=2592000)](https://raw.githubusercontent.com/courteouselk/Transactions/master/LICENSE)
 [![Swift 3.1](https://img.shields.io/badge/Swift-3.1-E9392C.svg?style=flat)](https://developer.apple.com/swift/)
+[![GitHub release](https://img.shields.io/github/release/courteouselk/Transactions.svg)](https://github.com/courteouselk/Transactions/releases)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Travis CI](https://travis-ci.org/courteouselk/Transactions.svg?branch=master)](https://travis-ci.org/courteouselk/Transactions)
+[![codecov](https://codecov.io/gh/courteouselk/Transactions/branch/master/graph/badge.svg)](https://codecov.io/gh/courteouselk/Transactions)
 
 Simple framework to facilicate the management of transactional changes to the model.
 

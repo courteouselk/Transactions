@@ -14,6 +14,11 @@
 - Renamed `TransactionContext.transaction` to `.activeTransaction`
 - Renamed `TransactionContext.isActive` to `.transactionIsActive`
 
+### Fixes
+
+- Transaction context node now triggers relevan `onBegin` handlers in case if it is being added into
+  the context tree in the middle of an active transaction.
+
 ### Miscellaneous
 
 - Improved documentation.
