@@ -56,13 +56,13 @@ public extension Transactable {
 
     // MARK: Default implementations
 
-    func onBegin(transaction: Transaction) { }
-
-    func onValidateCommit() throws { }
-
-    func onCommit(transaction: Transaction) { }
-
-    func onRollback(transaction: Transaction) { }
+    //    func onBegin(transaction: Transaction) { }
+    //
+    //    func onValidateCommit() throws { }
+    //
+    //    func onCommit(transaction: Transaction) { }
+    //
+    //    func onRollback(transaction: Transaction) { }
 
     // MARK: Protocol extensions
 
