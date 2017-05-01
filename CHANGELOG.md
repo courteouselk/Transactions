@@ -1,5 +1,14 @@
 # Change Log
 
+## [0.0.3](https://github.com/courteouselk/Transactions/compare/0.0.2...0.0.3)
+
+### Bug fixes
+
+- If the body of `transaction` closure would fail `onValidateCommit` the rollback will now be 
+  triggered.
+- Default implementations (empty) for `onXXX` handlers could overshadow concrete implementations of
+  the same handlers on protocol adopters.  These are removed now.
+
 ## [0.0.2](https://github.com/courteouselk/Transactions/compare/0.0.1...0.0.2)
 
 ### New API
