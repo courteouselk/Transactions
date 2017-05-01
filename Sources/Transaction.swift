@@ -34,13 +34,11 @@ public struct Transaction : Equatable {
     }
 
     init() {
-        var id = UUID()
-
-        while id == UUID.zero {
-            id = UUID()
-        }
-
-        self.id = id
+        id = {
+            var id = UUID()
+            while id == .zero { id = UUID() }
+            return id
+        }()
     }
 
     // MARK: - Operators

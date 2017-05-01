@@ -42,18 +42,25 @@ class TransactionContextTests : XCTestCase {
 
     func test_InitialState_CountersAreZero() {
         XCTAssertEqual(library.beginCount, 0)
+        XCTAssertEqual(library.validationsCount, 0)
+        XCTAssertEqual(library.failedValidationsCount, 0)
         XCTAssertEqual(library.commitCount, 0)
         XCTAssertEqual(library.rollbackCount, 0)
         XCTAssertEqual(library.transactionClosureCount, 0)
 
         XCTAssertEqual(bookA.beginCount, 0)
+        XCTAssertEqual(bookA.validationsCount, 0)
+        XCTAssertEqual(bookA.failedValidationsCount, 0)
         XCTAssertEqual(bookA.commitCount, 0)
         XCTAssertEqual(bookA.rollbackCount, 0)
         XCTAssertEqual(bookA.transactionClosureCount, 0)
 
         XCTAssertEqual(bookB.beginCount, 0)
+        XCTAssertEqual(bookB.validationsCount, 0)
+        XCTAssertEqual(bookB.failedValidationsCount, 0)
         XCTAssertEqual(bookB.commitCount, 0)
         XCTAssertEqual(bookB.rollbackCount, 0)
         XCTAssertEqual(bookB.transactionClosureCount, 0)
     }
+
 }

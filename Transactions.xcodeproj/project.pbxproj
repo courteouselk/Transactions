@@ -48,6 +48,8 @@
 		BAD3812D1E84807E0048CD52 /* UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD381201E83BFD40048CD52 /* UUID.swift */; };
 		BADB83B71E8972C00024A399 /* TransactionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB83B61E8972C00024A399 /* TransactionError.swift */; };
 		BADB83B81E8972C00024A399 /* TransactionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB83B61E8972C00024A399 /* TransactionError.swift */; };
+		BAEB6C6F1EB649710022EF5F /* XCTExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB6C6E1EB649710022EF5F /* XCTExtensions.swift */; };
+		BAEB6C701EB649710022EF5F /* XCTExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB6C6E1EB649710022EF5F /* XCTExtensions.swift */; };
 		BAF680431E866D4B00FBE39F /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF680421E866D4B00FBE39F /* Library.swift */; };
 		BAF680441E866D4B00FBE39F /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF680421E866D4B00FBE39F /* Library.swift */; };
 		BAF680461E866DAF00FBE39F /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF680451E866DAF00FBE39F /* Book.swift */; };
@@ -104,6 +106,7 @@
 		BAD381201E83BFD40048CD52 /* UUID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUID.swift; sourceTree = "<group>"; };
 		BAD381221E83C15D0048CD52 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		BADB83B61E8972C00024A399 /* TransactionError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionError.swift; sourceTree = "<group>"; };
+		BAEB6C6E1EB649710022EF5F /* XCTExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTExtensions.swift; sourceTree = "<group>"; };
 		BAF680421E866D4B00FBE39F /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		BAF680451E866DAF00FBE39F /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -271,6 +274,7 @@
 		BAB8B3151E867F29006D1CC0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				BAEB6C6E1EB649710022EF5F /* XCTExtensions.swift */,
 				BA555F681E8F78BE00CA3D5A /* LibraryError.swift */,
 				BAF680421E866D4B00FBE39F /* Library.swift */,
 				BAF680451E866DAF00FBE39F /* Book.swift */,
@@ -466,6 +470,7 @@
 				BAD1BC351E89C7BB002B898D /* InactiveTransactionContextNodeTests.swift in Sources */,
 				BA0085691E899522005B0D73 /* ActiveTransactionContextTests.swift in Sources */,
 				BAF680431E866D4B00FBE39F /* Library.swift in Sources */,
+				BAEB6C6F1EB649710022EF5F /* XCTExtensions.swift in Sources */,
 				BA082C2F1EAB64CB00CB11EC /* TransactionContextTests.swift in Sources */,
 				BAD1BC381E8A3CB3002B898D /* ActiveTransactionContextRootTests.swift in Sources */,
 				BAF680461E866DAF00FBE39F /* Book.swift in Sources */,
@@ -484,6 +489,7 @@
 				BAD1BC361E89C7BB002B898D /* InactiveTransactionContextNodeTests.swift in Sources */,
 				BA00856A1E899522005B0D73 /* ActiveTransactionContextTests.swift in Sources */,
 				BAF680441E866D4B00FBE39F /* Library.swift in Sources */,
+				BAEB6C701EB649710022EF5F /* XCTExtensions.swift in Sources */,
 				BA082C301EAB64CB00CB11EC /* TransactionContextTests.swift in Sources */,
 				BAD1BC391E8A3CB3002B898D /* ActiveTransactionContextRootTests.swift in Sources */,
 				BAF680471E866DAF00FBE39F /* Book.swift in Sources */,

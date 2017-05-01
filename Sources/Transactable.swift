@@ -54,16 +54,6 @@ public protocol Transactable : AnyObject {
 
 public extension Transactable {
 
-    // MARK: Default implementations
-
-    //    func onBegin(transaction: Transaction) { }
-    //
-    //    func onValidateCommit() throws { }
-    //
-    //    func onCommit(transaction: Transaction) { }
-    //
-    //    func onRollback(transaction: Transaction) { }
-
     // MARK: Protocol extensions
 
     /// Indicates whether the transaction is currently active.
@@ -165,14 +155,18 @@ public extension Transactable {
         if transactionContext.transactionIsActive {
             return try executeTransaction()
         } else {
-            let result: Result
-
             try transactionContext.beginTransaction()
 
-            do { result = try executeTransaction() }
-            catch { try transactionContext.rollbackTransaction(); throw error }
+            let result: Result
 
-            try transactionContext.commitTransaction()
+            do {
+                result = try executeTransaction()
+                try transactionContext.commitTransaction()
+            }
+            catch {
+                try transactionContext.rollbackTransaction()
+                throw error
+            }
 
             return result
         }

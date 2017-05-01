@@ -44,6 +44,14 @@ class InactiveTransactionContextRootTests : InactiveTransactionContextTests {
         XCTAssertEqual(bookA.beginCount, 1)
         XCTAssertEqual(bookB.beginCount, 1)
 
+        XCTAssertEqual(library.validationsCount, 0)
+        XCTAssertEqual(bookA.validationsCount, 0)
+        XCTAssertEqual(bookB.validationsCount, 0)
+
+        XCTAssertEqual(library.failedValidationsCount, 0)
+        XCTAssertEqual(bookA.failedValidationsCount, 0)
+        XCTAssertEqual(bookB.failedValidationsCount, 0)
+
         XCTAssertEqual(library.commitCount, 0)
         XCTAssertEqual(bookA.commitCount, 0)
         XCTAssertEqual(bookB.commitCount, 0)
@@ -70,6 +78,14 @@ class InactiveTransactionContextRootTests : InactiveTransactionContextTests {
         XCTAssertEqual(library.beginCount, 0)
         XCTAssertEqual(bookA.beginCount, 0)
         XCTAssertEqual(bookB.beginCount, 0)
+
+        XCTAssertEqual(library.validationsCount, 0)
+        XCTAssertEqual(bookA.validationsCount, 0)
+        XCTAssertEqual(bookB.validationsCount, 0)
+
+        XCTAssertEqual(library.failedValidationsCount, 0)
+        XCTAssertEqual(bookA.failedValidationsCount, 0)
+        XCTAssertEqual(bookB.failedValidationsCount, 0)
 
         XCTAssertEqual(library.commitCount, 0)
         XCTAssertEqual(bookA.commitCount, 0)
@@ -98,6 +114,14 @@ class InactiveTransactionContextRootTests : InactiveTransactionContextTests {
         XCTAssertEqual(bookA.beginCount, 0)
         XCTAssertEqual(bookB.beginCount, 0)
 
+        XCTAssertEqual(library.validationsCount, 0)
+        XCTAssertEqual(bookA.validationsCount, 0)
+        XCTAssertEqual(bookB.validationsCount, 0)
+
+        XCTAssertEqual(library.failedValidationsCount, 0)
+        XCTAssertEqual(bookA.failedValidationsCount, 0)
+        XCTAssertEqual(bookB.failedValidationsCount, 0)
+
         XCTAssertEqual(library.commitCount, 0)
         XCTAssertEqual(bookA.commitCount, 0)
         XCTAssertEqual(bookB.commitCount, 0)
@@ -123,6 +147,14 @@ class InactiveTransactionContextRootTests : InactiveTransactionContextTests {
         XCTAssertEqual(library.beginCount, 1)
         XCTAssertEqual(bookA.beginCount, 1)
         XCTAssertEqual(bookB.beginCount, 1)
+
+        XCTAssertEqual(library.validationsCount, 1)
+        XCTAssertEqual(bookA.validationsCount, 1)
+        XCTAssertEqual(bookB.validationsCount, 1)
+
+        XCTAssertEqual(library.failedValidationsCount, 0)
+        XCTAssertEqual(bookA.failedValidationsCount, 0)
+        XCTAssertEqual(bookB.failedValidationsCount, 0)
 
         XCTAssertEqual(library.commitCount, 1)
         XCTAssertEqual(bookA.commitCount, 1)
@@ -151,6 +183,14 @@ class InactiveTransactionContextRootTests : InactiveTransactionContextTests {
         XCTAssertEqual(library.beginCount, 1)
         XCTAssertEqual(bookA.beginCount, 1)
         XCTAssertEqual(bookB.beginCount, 1)
+
+        XCTAssertEqual(library.validationsCount, 1)
+        XCTAssertEqual(bookA.validationsCount, 1)
+        XCTAssertEqual(bookB.validationsCount, 1)
+
+        XCTAssertEqual(library.failedValidationsCount, 0)
+        XCTAssertEqual(bookA.failedValidationsCount, 0)
+        XCTAssertEqual(bookB.failedValidationsCount, 0)
 
         XCTAssertEqual(library.commitCount, 1)
         XCTAssertEqual(bookA.commitCount, 1)
@@ -183,6 +223,14 @@ class InactiveTransactionContextRootTests : InactiveTransactionContextTests {
         XCTAssertEqual(bookA.beginCount, 1)
         XCTAssertEqual(bookB.beginCount, 1)
 
+        XCTAssertEqual(library.validationsCount, 0)
+        XCTAssertEqual(bookA.validationsCount, 0)
+        XCTAssertEqual(bookB.validationsCount, 0)
+
+        XCTAssertEqual(library.failedValidationsCount, 0)
+        XCTAssertEqual(bookA.failedValidationsCount, 0)
+        XCTAssertEqual(bookB.failedValidationsCount, 0)
+
         XCTAssertEqual(library.commitCount, 0)
         XCTAssertEqual(bookA.commitCount, 0)
         XCTAssertEqual(bookB.commitCount, 0)
@@ -212,6 +260,14 @@ class InactiveTransactionContextRootTests : InactiveTransactionContextTests {
         XCTAssertEqual(bookA.beginCount, 1)
         XCTAssertEqual(bookB.beginCount, 1)
 
+        XCTAssertEqual(library.validationsCount, 0)
+        XCTAssertEqual(bookA.validationsCount, 0)
+        XCTAssertEqual(bookB.validationsCount, 0)
+
+        XCTAssertEqual(library.failedValidationsCount, 0)
+        XCTAssertEqual(bookA.failedValidationsCount, 0)
+        XCTAssertEqual(bookB.failedValidationsCount, 0)
+
         XCTAssertEqual(library.commitCount, 0)
         XCTAssertEqual(bookA.commitCount, 0)
         XCTAssertEqual(bookB.commitCount, 0)
@@ -223,6 +279,72 @@ class InactiveTransactionContextRootTests : InactiveTransactionContextTests {
         XCTAssertEqual(library.transactionClosureCount, 0)
         XCTAssertEqual(bookA.transactionClosureCount, 0)
         XCTAssertEqual(bookB.transactionClosureCount, 0)
+    }
+
+    // MARK: -
+
+    func test_InvalidatedTransactionClosure_Throws() {
+        library.setCommittabilityError(LibraryError.someError)
+        XCTAssertThrowsError(try self.library.doTransactionClosure()) {
+            guard let error = $0 as? LibraryError else {
+                XCTFail("Must throw LibraryError, but thrown \(type(of: $0)) instead"); return
+            }
+            XCTAssertEqual(error, LibraryError.someError)
+        }
+    }
+
+    func test_InvalidatedTransactionClosure_BeginsAndRollsbackTransaction() {
+        library.setCommittabilityError(LibraryError.someError)
+
+        do { try library.doTransactionClosure() } catch { }
+
+        XCTAssertEqual(library.beginCount, 1)
+        XCTAssertEqual(bookA.beginCount, 1)
+        XCTAssertEqual(bookB.beginCount, 1)
+
+        XCTAssertEqual(library.validationsCount, 1)
+
+        XCTAssertEqual(library.failedValidationsCount, 1)
+
+        XCTAssertEqual(library.commitCount, 0)
+        XCTAssertEqual(bookA.commitCount, 0)
+        XCTAssertEqual(bookB.commitCount, 0)
+
+        XCTAssertEqual(library.rollbackCount, 1)
+        XCTAssertEqual(bookA.rollbackCount, 1)
+        XCTAssertEqual(bookB.rollbackCount, 1)
+    }
+
+    func test_InvalidatedNestingTransactionClosure_Throws() {
+        library.setCommittabilityError(LibraryError.someError)
+        XCTAssertThrowsError(try self.library.doNestingTranscationClosure()) {
+            guard let error = $0 as? LibraryError else {
+                XCTFail("Must throw LibraryError, but thrown \(type(of: $0)) instead"); return
+            }
+            XCTAssertEqual(error, LibraryError.someError)
+        }
+    }
+
+    func test_InvalidatedNestingTransactionClosure_BeginsAndRollsbackTransaction() {
+        library.setCommittabilityError(LibraryError.someError)
+
+        do { try library.doNestingTranscationClosure() } catch { }
+
+        XCTAssertEqual(library.beginCount, 1)
+        XCTAssertEqual(bookA.beginCount, 1)
+        XCTAssertEqual(bookB.beginCount, 1)
+
+        XCTAssertEqual(library.validationsCount, 1)
+
+        XCTAssertEqual(library.failedValidationsCount, 1)
+
+        XCTAssertEqual(library.commitCount, 0)
+        XCTAssertEqual(bookA.commitCount, 0)
+        XCTAssertEqual(bookB.commitCount, 0)
+
+        XCTAssertEqual(library.rollbackCount, 1)
+        XCTAssertEqual(bookA.rollbackCount, 1)
+        XCTAssertEqual(bookB.rollbackCount, 1)
     }
 
 }

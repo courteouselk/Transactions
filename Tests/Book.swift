@@ -24,6 +24,8 @@ final class Book : Transactable, CustomStringConvertible {
     var description: String { return "Book \"\(name)\"" }
 
     private (set) var beginCount = 0
+    private (set) var validationsCount = 0
+    private (set) var failedValidationsCount = 0
     private (set) var commitCount = 0
     private (set) var rollbackCount = 0
     private (set) var transactionClosureCount = 0
@@ -44,7 +46,9 @@ final class Book : Transactable, CustomStringConvertible {
     }
 
     func onValidateCommit() throws {
+        validationsCount += 1
         if let error = _committabilityError {
+            failedValidationsCount += 1
             throw error
         }
     }
@@ -61,6 +65,8 @@ final class Book : Transactable, CustomStringConvertible {
 
     func resetCounts() {
         beginCount = 0
+        validationsCount = 0
+        failedValidationsCount = 0
         commitCount = 0
         rollbackCount = 0
         transactionClosureCount = 0
