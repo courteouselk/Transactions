@@ -163,7 +163,6 @@ to make all necessary preparations before the transaction starts.</p>
 
 <p>This method is called by the context prior transaction commit.  If no one of the 
 transactables in the context tree throws an error, the commit can proceed.</p>
-
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     An error is thrown in case if the transaction can not be commited.
@@ -270,7 +269,6 @@ discard any staged changes and reset its state.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Indicates whether the transaction is currently active.</p>
-
 <div class="aside aside-important">
     <p class="aside-title">Important</p>
     This property is not supposed to be implemented by the adopting class.
@@ -309,7 +307,6 @@ discard any staged changes and reset its state.</p>
                         <p>Currently active transaction.</p>
 
 <p>If no transaction is active the value is <code>nil</code>.</p>
-
 <div class="aside aside-important">
     <p class="aside-title">Important</p>
     This property is not supposed to be implemented by the adopting class.
@@ -346,14 +343,12 @@ discard any staged changes and reset its state.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Begin a new transaction.</p>
-
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     <p>Can throw an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> (e.g. if another transaction is
       already active).</p>
 
 </div>
-
 <div class="aside aside-important">
     <p class="aside-title">Important</p>
     <p>This method is not supposed to be implemented by the adopting class.
@@ -373,7 +368,6 @@ discard any staged changes and reset its state.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>The descriptor for a newly started transaction.</p>
-
                       </div>
                     </section>
                   </div>
@@ -395,7 +389,6 @@ discard any staged changes and reset its state.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Commit the transaction.</p>
-
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     <p>Can throw an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> (e.g. if no transaction is actually
@@ -403,7 +396,6 @@ discard any staged changes and reset its state.</p>
       <code>.hasCommittabilityError()</code> methods.</p>
 
 </div>
-
 <div class="aside aside-important">
     <p class="aside-title">Important</p>
     <p>This method is not supposed to be implemented by the adopting class.
@@ -432,8 +424,9 @@ discard any staged changes and reset its state.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The descriptor of the transaction to commit.  If this parameter is not omitted then the context will check whether it matches to the actually active one.  If they do not match, an error is thrown.</p>
-
+                                  <p>The descriptor of the transaction to commit.  If this parameter is
+         not omitted then the context will check whether it matches to the
+         actually active one.  If they do not match, an error is thrown.</p>
                                 </div>
                               </td>
                             </tr>
@@ -460,14 +453,12 @@ discard any staged changes and reset its state.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Rollback the transaction.</p>
-
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     <p>Can throw an instance of <code><a href="../Enums/TransactionError.html">TransactionError</a></code> (e.g. if no transaction is actually
       active).</p>
 
 </div>
-
 <div class="aside aside-important">
     <p class="aside-title">Important</p>
     <p>This method is not supposed to be implemented by the adopting class.
@@ -496,8 +487,9 @@ discard any staged changes and reset its state.</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>The descriptor of the transaction to rollback.  If this parameter is not omitted then the context will check whether it matches to the actually active one.  If they do not match, an error is thrown.</p>
-
+                                  <p>The descriptor of the transaction to rollback.  If this parameter is
+         not omitted then the context will check whether it matches to the
+         actually active one.  If they do not match, an error is thrown.</p>
                                 </div>
                               </td>
                             </tr>
@@ -536,15 +528,13 @@ Otherwise, call <code>rollbackTransaction()</code> and rethrow any error that
 <code>executeTransaction()</code> might have thrown.</li>
 </ol>
 
-<p><strong>Example:</strong>
-<code>
-func doSomething() {
+<p><strong>Example:</strong></p>
+<pre class="highlight plaintext"><code>func doSomething() {
     try transaction {
         // your code here
     }
 }
-</code></p>
-
+</code></pre>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>It is possible to nest <code>transaction</code> blocks.  If a nesting method already had
@@ -552,7 +542,6 @@ func doSomething() {
     transaction.</p>
 
 </div>
-
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     <p>Any error that <code>executeTransaction</code>, <code>beginTransaction</code>, <code>commitTransaction</code>, or
@@ -582,7 +571,6 @@ func doSomething() {
                               <td>
                                 <div>
                                   <p>Closure that encapsulated the body of the transaction.</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -597,8 +585,8 @@ func doSomething() {
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">Anton Bronnikov</a>. All rights reserved. (Last updated: 2017-05-01)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.5</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2017 <a class="link" href="" target="_blank" rel="external">Anton Bronnikov</a>. All rights reserved. (Last updated: 2017-05-29)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.8.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
