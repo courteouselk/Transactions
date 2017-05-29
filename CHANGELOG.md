@@ -9,6 +9,10 @@
 - Default implementations (empty) for `onXXX` handlers could overshadow concrete implementations of
   the same handlers on protocol adopters.  These are removed now.
 
+### Other
+
+- Updated documentation.
+
 ## [0.0.2](https://github.com/courteouselk/Transactions/compare/0.0.1...0.0.2)
 
 ### New API
