@@ -7,9 +7,11 @@ import TransactionsTests
 
 extension {{ type.name }} {
 
-    static var allTests = [
-{% for method in type.methods %}{% if method.parameters.count == 0 and method.shortName|hasPrefix:"test" %}        ("{{ method.shortName }}", {{ method.shortName }}),
-{% endif %}{% endfor %}    ]
+    public static var allTests: [(String, ({{ type.name }}) -> () throws -> Void)] {
+        return [
+{% for method in type.methods %}{% if method.parameters.count == 0 and method.shortName|hasPrefix:"test" %}            ("{{ method.shortName }}", {{ method.shortName }}),
+{% endif %}{% endfor %}        ]
+    }
 
 }
 
