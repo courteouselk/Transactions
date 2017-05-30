@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.0.4](https://github.com/courteouselk/Transactions/compare/0.0.3...0.0.4)
+
+### Miscellanneous
+
+- Add Linux support.
+- Add CocoaPods support.
+
 ## [0.0.3](https://github.com/courteouselk/Transactions/compare/0.0.2...0.0.3)
 
 ### Bug fixes

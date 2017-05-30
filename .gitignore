@@ -54,3 +54,7 @@ Carthage/Build
 # Jazzy
 
 docs/docsets/
+
+# Visual Studio Code
+
+.vscode
