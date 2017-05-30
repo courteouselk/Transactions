@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Transactions
+@testable import TransactionsTests
 
 XCTMain([
     testCase(TransactionContextTests.allTests),

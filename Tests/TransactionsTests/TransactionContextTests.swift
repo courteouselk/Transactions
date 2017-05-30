@@ -71,7 +71,7 @@ class TransactionContextTests : XCTestCase {
 
     extension TransactionContextTests {
 
-        static var allTests: [(String, TransactionContextTests -> () throws -> Void)] {
+        public static var allTests: [(String, (TransactionContextTests) -> () throws -> Void)] {
             return [
                 ("test_InitialState_ObjectStructureIsValid", test_InitialState_ObjectStructureIsValid),
                 ("test_InitialState_CountersAreZero", test_InitialState_CountersAreZero),
