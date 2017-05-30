@@ -48,8 +48,6 @@
 		BAD3812D1E84807E0048CD52 /* UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD381201E83BFD40048CD52 /* UUID.swift */; };
 		BADB83B71E8972C00024A399 /* TransactionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB83B61E8972C00024A399 /* TransactionError.swift */; };
 		BADB83B81E8972C00024A399 /* TransactionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB83B61E8972C00024A399 /* TransactionError.swift */; };
-		BAEB6C6F1EB649710022EF5F /* XCTExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB6C6E1EB649710022EF5F /* XCTExtensions.swift */; };
-		BAEB6C701EB649710022EF5F /* XCTExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEB6C6E1EB649710022EF5F /* XCTExtensions.swift */; };
 		BAF680431E866D4B00FBE39F /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF680421E866D4B00FBE39F /* Library.swift */; };
 		BAF680441E866D4B00FBE39F /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF680421E866D4B00FBE39F /* Library.swift */; };
 		BAF680461E866DAF00FBE39F /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF680451E866DAF00FBE39F /* Book.swift */; };
@@ -74,17 +72,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BA0085681E899522005B0D73 /* ActiveTransactionContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ActiveTransactionContextTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		BA082C2E1EAB64CB00CB11EC /* TransactionContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionContextTests.swift; sourceTree = "<group>"; };
+		BA0085681E899522005B0D73 /* ActiveTransactionContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ActiveTransactionContextTests.swift; path = TransactionsTests/ActiveTransactionContextTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BA082C2E1EAB64CB00CB11EC /* TransactionContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionContextTests.swift; path = TransactionsTests/TransactionContextTests.swift; sourceTree = "<group>"; };
 		BA13646E1E85CB6F00A1CC07 /* TransactionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransactionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA1364721E85CB6F00A1CC07 /* InfoTests-macOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InfoTests-macOS.plist"; sourceTree = "<group>"; };
 		BA13647D1E85D0DC00A1CC07 /* TransactionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransactionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA1364811E85D0DC00A1CC07 /* InfoTests-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InfoTests-iOS.plist"; sourceTree = "<group>"; };
-		BA13648A1E85D25300A1CC07 /* InactiveTransactionContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InactiveTransactionContextTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BA13648A1E85D25300A1CC07 /* InactiveTransactionContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InactiveTransactionContextTests.swift; path = TransactionsTests/InactiveTransactionContextTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BA2B0A2D1EAF215300085A70 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		BA2B0A2F1EB07BE800085A70 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		BA48A53F1EABB66800C7D6D4 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
-		BA555F681E8F78BE00CA3D5A /* LibraryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryError.swift; sourceTree = "<group>"; };
+		BA555F681E8F78BE00CA3D5A /* LibraryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LibraryError.swift; path = TransactionsTests/LibraryError.swift; sourceTree = "<group>"; };
 		BA5EB1481E83A60F00DAEB37 /* Transactions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Transactions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5EB14B1E83A60F00DAEB37 /* Transactions-macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Transactions-macOS.h"; sourceTree = "<group>"; };
 		BA5EB14C1E83A60F00DAEB37 /* Info-macOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-macOS.plist"; sourceTree = "<group>"; };
@@ -97,18 +95,18 @@
 		BA5EB1691E83AECB00DAEB37 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		BA5EB16E1E83BAD600DAEB37 /* Transactable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transactable.swift; sourceTree = "<group>"; };
 		BA5EB1701E83BCEE00DAEB37 /* TransactionContextRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionContextRoot.swift; sourceTree = "<group>"; };
-		BA86A2521EB1101000AE9BAB /* Volume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Volume.swift; sourceTree = "<group>"; };
-		BAAE967E1E89C6BF008EB56F /* InactiveTransactionContextRootTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InactiveTransactionContextRootTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		BAD1BC341E89C7BB002B898D /* InactiveTransactionContextNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InactiveTransactionContextNodeTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		BAD1BC371E8A3CB3002B898D /* ActiveTransactionContextRootTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ActiveTransactionContextRootTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		BAD1BC3A1E8A3F81002B898D /* ActiveTransactionContextNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ActiveTransactionContextNodeTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BA86A2521EB1101000AE9BAB /* Volume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Volume.swift; path = TransactionsTests/Volume.swift; sourceTree = "<group>"; };
+		BAAE967E1E89C6BF008EB56F /* InactiveTransactionContextRootTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InactiveTransactionContextRootTests.swift; path = TransactionsTests/InactiveTransactionContextRootTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BAB731F71EDD45BC0065E534 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		BAD1BC341E89C7BB002B898D /* InactiveTransactionContextNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InactiveTransactionContextNodeTests.swift; path = TransactionsTests/InactiveTransactionContextNodeTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BAD1BC371E8A3CB3002B898D /* ActiveTransactionContextRootTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ActiveTransactionContextRootTests.swift; path = TransactionsTests/ActiveTransactionContextRootTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		BAD1BC3A1E8A3F81002B898D /* ActiveTransactionContextNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = ActiveTransactionContextNodeTests.swift; path = TransactionsTests/ActiveTransactionContextNodeTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BAD3811E1E83BDF20048CD52 /* TransactionContextNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionContextNode.swift; sourceTree = "<group>"; };
 		BAD381201E83BFD40048CD52 /* UUID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUID.swift; sourceTree = "<group>"; };
 		BAD381221E83C15D0048CD52 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		BADB83B61E8972C00024A399 /* TransactionError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionError.swift; sourceTree = "<group>"; };
-		BAEB6C6E1EB649710022EF5F /* XCTExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTExtensions.swift; sourceTree = "<group>"; };
-		BAF680421E866D4B00FBE39F /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
-		BAF680451E866DAF00FBE39F /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		BAF680421E866D4B00FBE39F /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Library.swift; path = TransactionsTests/Library.swift; sourceTree = "<group>"; };
+		BAF680451E866DAF00FBE39F /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Book.swift; path = TransactionsTests/Book.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +156,7 @@
 		BA5EB13E1E83A60F00DAEB37 = {
 			isa = PBXGroup;
 			children = (
+				BAB731F71EDD45BC0065E534 /* Package.swift */,
 				BA5EB1561E83AC3B00DAEB37 /* Documentation */,
 				BA5EB1571E83AC4400DAEB37 /* Support */,
 				BA5EB1551E83AC2500DAEB37 /* Headers */,
@@ -274,7 +273,6 @@
 		BAB8B3151E867F29006D1CC0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				BAEB6C6E1EB649710022EF5F /* XCTExtensions.swift */,
 				BA555F681E8F78BE00CA3D5A /* LibraryError.swift */,
 				BAF680421E866D4B00FBE39F /* Library.swift */,
 				BAF680451E866DAF00FBE39F /* Book.swift */,
@@ -470,7 +468,6 @@
 				BAD1BC351E89C7BB002B898D /* InactiveTransactionContextNodeTests.swift in Sources */,
 				BA0085691E899522005B0D73 /* ActiveTransactionContextTests.swift in Sources */,
 				BAF680431E866D4B00FBE39F /* Library.swift in Sources */,
-				BAEB6C6F1EB649710022EF5F /* XCTExtensions.swift in Sources */,
 				BA082C2F1EAB64CB00CB11EC /* TransactionContextTests.swift in Sources */,
 				BAD1BC381E8A3CB3002B898D /* ActiveTransactionContextRootTests.swift in Sources */,
 				BAF680461E866DAF00FBE39F /* Book.swift in Sources */,
@@ -489,7 +486,6 @@
 				BAD1BC361E89C7BB002B898D /* InactiveTransactionContextNodeTests.swift in Sources */,
 				BA00856A1E899522005B0D73 /* ActiveTransactionContextTests.swift in Sources */,
 				BAF680441E866D4B00FBE39F /* Library.swift in Sources */,
-				BAEB6C701EB649710022EF5F /* XCTExtensions.swift in Sources */,
 				BA082C301EAB64CB00CB11EC /* TransactionContextTests.swift in Sources */,
 				BAD1BC391E8A3CB3002B898D /* ActiveTransactionContextRootTests.swift in Sources */,
 				BAF680471E866DAF00FBE39F /* Book.swift in Sources */,
