@@ -1,5 +1,5 @@
 // sourcery:file:Tests/LinuxMain.swift
-//  Copyright © 2017 Anton Bronnikov. All rights reserved.
+// Copyright © 2017 Anton Bronnikov. All rights reserved.
 
 import XCTest
 @testable import TransactionsTests

@@ -1,7 +1,7 @@
 // Generated using Sourcery 0.6.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
-//  Copyright © 2017 Anton Bronnikov. All rights reserved.
+// Copyright © 2017 Anton Bronnikov. All rights reserved.
 
 import XCTest
 @testable import TransactionsTests
