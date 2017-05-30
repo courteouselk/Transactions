@@ -97,6 +97,7 @@
 		BA5EB1701E83BCEE00DAEB37 /* TransactionContextRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionContextRoot.swift; sourceTree = "<group>"; };
 		BA86A2521EB1101000AE9BAB /* Volume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Volume.swift; path = TransactionsTests/Volume.swift; sourceTree = "<group>"; };
 		BA99F4CC1EDDE64C00D40396 /* LinuxMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
+		BA99F4CD1EDE0A2000D40396 /* LinuxMain.stencil */ = {isa = PBXFileReference; lastKnownFileType = text; path = LinuxMain.stencil; sourceTree = "<group>"; };
 		BAAE967E1E89C6BF008EB56F /* InactiveTransactionContextRootTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InactiveTransactionContextRootTests.swift; path = TransactionsTests/InactiveTransactionContextRootTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BAB731F71EDD45BC0065E534 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		BAD1BC341E89C7BB002B898D /* InactiveTransactionContextNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InactiveTransactionContextNodeTests.swift; path = TransactionsTests/InactiveTransactionContextNodeTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -162,6 +163,7 @@
 				BA5EB1571E83AC4400DAEB37 /* Support */,
 				BA5EB1551E83AC2500DAEB37 /* Headers */,
 				BA5EB1531E83ABE300DAEB37 /* Sources */,
+				BA99F4CE1EDE159800D40396 /* Stencils */,
 				BA5EB1541E83AC0000DAEB37 /* Tests */,
 				BA5EB1491E83A60F00DAEB37 /* Products */,
 			);
@@ -250,6 +252,14 @@
 				BAD3811E1E83BDF20048CD52 /* TransactionContextNode.swift */,
 			);
 			name = Transaction;
+			sourceTree = "<group>";
+		};
+		BA99F4CE1EDE159800D40396 /* Stencils */ = {
+			isa = PBXGroup;
+			children = (
+				BA99F4CD1EDE0A2000D40396 /* LinuxMain.stencil */,
+			);
+			path = Stencils;
 			sourceTree = "<group>";
 		};
 		BAAE967C1E89C68D008EB56F /* Inactive transaction */ = {

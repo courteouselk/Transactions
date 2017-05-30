@@ -562,5 +562,4 @@ class ActiveTransactionContextNodeTests : ActiveTransactionContextTests {
         XCTAssertEqual(volume2.commitCount, 0)
     }
 
-
 }
