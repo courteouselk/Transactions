@@ -4,7 +4,7 @@
 //  Copyright © 2017 Anton Bronnikov. All rights reserved.
 
 import XCTest
-import TransactionsTests
+@testable import TransactionsTests
 
 extension ActiveTransactionContextNodeTests {
 
