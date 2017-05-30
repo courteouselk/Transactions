@@ -3,7 +3,11 @@
 [![License](https://img.shields.io/github/license/courteouselk/Transactions.svg?maxAge=2592000)](https://raw.githubusercontent.com/courteouselk/Transactions/master/LICENSE)
 [![Swift 3.1](https://img.shields.io/badge/Swift-3.1-E9392C.svg?style=flat)](https://developer.apple.com/swift/)
 [![GitHub release](https://img.shields.io/github/release/courteouselk/Transactions.svg)](https://github.com/courteouselk/Transactions/releases)
+![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20Linux-333333.svg)
+
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
+
 [![Travis CI](https://travis-ci.org/courteouselk/Transactions.svg?branch=master)](https://travis-ci.org/courteouselk/Transactions)
 [![codecov](https://codecov.io/gh/courteouselk/Transactions/branch/master/graph/badge.svg)](https://codecov.io/gh/courteouselk/Transactions)
 [![documentation](https://img.shields.io/badge/documentation-available-brightgreen.svg)](http://northernforest.nl/Transactions/)
@@ -28,7 +32,7 @@ import Transactions
 class PieChart : Transactable  {
 
     private (set) var elements: [String: PieChartElement] = [:]
-    private var elementsBackup: [String: PieChartElement] = [:]
+    private var elementsBackup: [String: PieChartElement] = [:] // Backup to be used in case of rollback
 
     // Transaction context is a mediator class that "links" transaction
     // tree together.  There are two kinds of it, a root and a node.
