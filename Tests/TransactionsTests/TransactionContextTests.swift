@@ -64,3 +64,20 @@ class TransactionContextTests : XCTestCase {
     }
 
 }
+
+// MARK: - Linux
+
+#if os(Linux)
+
+    extension TransactionContextTests {
+
+        static var allTests: [(String, TransactionContextTests -> () throws -> Void)] {
+            return [
+                ("test_InitialState_ObjectStructureIsValid", test_InitialState_ObjectStructureIsValid),
+                ("test_InitialState_CountersAreZero", test_InitialState_CountersAreZero),
+            ]
+        }
+
+    }
+
+#endif

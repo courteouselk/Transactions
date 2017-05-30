@@ -96,6 +96,7 @@
 		BA5EB16E1E83BAD600DAEB37 /* Transactable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transactable.swift; sourceTree = "<group>"; };
 		BA5EB1701E83BCEE00DAEB37 /* TransactionContextRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionContextRoot.swift; sourceTree = "<group>"; };
 		BA86A2521EB1101000AE9BAB /* Volume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Volume.swift; path = TransactionsTests/Volume.swift; sourceTree = "<group>"; };
+		BA99F4CC1EDDE64C00D40396 /* LinuxMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
 		BAAE967E1E89C6BF008EB56F /* InactiveTransactionContextRootTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InactiveTransactionContextRootTests.swift; path = TransactionsTests/InactiveTransactionContextRootTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		BAB731F71EDD45BC0065E534 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		BAD1BC341E89C7BB002B898D /* InactiveTransactionContextNodeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InactiveTransactionContextNodeTests.swift; path = TransactionsTests/InactiveTransactionContextNodeTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -146,9 +147,9 @@
 		BA082C2D1EAB649E00CB11EC /* Transaction context */ = {
 			isa = PBXGroup;
 			children = (
-				BA082C2E1EAB64CB00CB11EC /* TransactionContextTests.swift */,
 				BAAE967C1E89C68D008EB56F /* Inactive transaction */,
 				BAAE967D1E89C69E008EB56F /* Active transaction */,
+				BA082C2E1EAB64CB00CB11EC /* TransactionContextTests.swift */,
 			);
 			name = "Transaction context";
 			sourceTree = "<group>";
@@ -191,6 +192,7 @@
 			children = (
 				BAB8B3151E867F29006D1CC0 /* Helpers */,
 				BA082C2D1EAB649E00CB11EC /* Transaction context */,
+				BA99F4CC1EDDE64C00D40396 /* LinuxMain.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
