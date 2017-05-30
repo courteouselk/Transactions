@@ -8,7 +8,7 @@ import XCTest
 
 extension ActiveTransactionContextNodeTests {
 
-    public static var allTests: [(String, (ActiveTransactionContextNodeTests) -> () throws -> Void)] {
+    public static var allActiveTransactionContextNodeTests: [(String, (ActiveTransactionContextNodeTests) -> () throws -> Void)] {
         return [
             ("test_BeginTransaction_Throws", test_BeginTransaction_Throws),
             ("test_CommitTransaction_WithWildcardDescriptor_DoesNotThrow", test_CommitTransaction_WithWildcardDescriptor_DoesNotThrow),
@@ -53,7 +53,7 @@ extension ActiveTransactionContextNodeTests {
 
 extension ActiveTransactionContextRootTests {
 
-    public static var allTests: [(String, (ActiveTransactionContextRootTests) -> () throws -> Void)] {
+    public static var allActiveTransactionContextRootTests: [(String, (ActiveTransactionContextRootTests) -> () throws -> Void)] {
         return [
             ("test_BeginTransaction_Throws", test_BeginTransaction_Throws),
             ("test_CommitTransaction_WithWildcardDescriptor_DoesNotThrow", test_CommitTransaction_WithWildcardDescriptor_DoesNotThrow),
@@ -97,7 +97,7 @@ extension ActiveTransactionContextRootTests {
 
 extension ActiveTransactionContextTests {
 
-    public static var allTests: [(String, (ActiveTransactionContextTests) -> () throws -> Void)] {
+    public static var allActiveTransactionContextTests: [(String, (ActiveTransactionContextTests) -> () throws -> Void)] {
         return [
             ("test_InitialState_ContextsAreActive", test_InitialState_ContextsAreActive),
             ("test_InitialState_ContextTransactionsAreNotNil", test_InitialState_ContextTransactionsAreNotNil),
@@ -110,7 +110,7 @@ extension ActiveTransactionContextTests {
 
 extension InactiveTransactionContextNodeTests {
 
-    public static var allTests: [(String, (InactiveTransactionContextNodeTests) -> () throws -> Void)] {
+    public static var allInactiveTransactionContextNodeTests: [(String, (InactiveTransactionContextNodeTests) -> () throws -> Void)] {
         return [
             ("test_BeginTransaction_DoesNotThrow", test_BeginTransaction_DoesNotThrow),
             ("test_BeginTransaction_SetsContextStateActive", test_BeginTransaction_SetsContextStateActive),
@@ -141,7 +141,7 @@ extension InactiveTransactionContextNodeTests {
 
 extension InactiveTransactionContextRootTests {
 
-    public static var allTests: [(String, (InactiveTransactionContextRootTests) -> () throws -> Void)] {
+    public static var allInactiveTransactionContextRootTests: [(String, (InactiveTransactionContextRootTests) -> () throws -> Void)] {
         return [
             ("test_BeginTransaction_DoesNotThrow", test_BeginTransaction_DoesNotThrow),
             ("test_BeginTransaction_SetsContextStateActive", test_BeginTransaction_SetsContextStateActive),
@@ -172,7 +172,7 @@ extension InactiveTransactionContextRootTests {
 
 extension InactiveTransactionContextTests {
 
-    public static var allTests: [(String, (InactiveTransactionContextTests) -> () throws -> Void)] {
+    public static var allInactiveTransactionContextTests: [(String, (InactiveTransactionContextTests) -> () throws -> Void)] {
         return [
             ("test_InitialState_ContextsAreInactive", test_InitialState_ContextsAreInactive),
             ("test_InitialState_ContextTransactionsAreNil", test_InitialState_ContextTransactionsAreNil),
@@ -185,7 +185,7 @@ extension InactiveTransactionContextTests {
 
 extension TransactionContextTests {
 
-    public static var allTests: [(String, (TransactionContextTests) -> () throws -> Void)] {
+    public static var allTransactionContextTests: [(String, (TransactionContextTests) -> () throws -> Void)] {
         return [
             ("test_InitialState_ObjectStructureIsValid", test_InitialState_ObjectStructureIsValid),
             ("test_InitialState_CountersAreZero", test_InitialState_CountersAreZero),
@@ -197,11 +197,11 @@ extension TransactionContextTests {
 // MARK: - XCTMain
 
 XCTMain([
-    testCase(ActiveTransactionContextNodeTests.allTests),
-    testCase(ActiveTransactionContextRootTests.allTests),
-    testCase(ActiveTransactionContextTests.allTests),
-    testCase(InactiveTransactionContextNodeTests.allTests),
-    testCase(InactiveTransactionContextRootTests.allTests),
-    testCase(InactiveTransactionContextTests.allTests),
-    testCase(TransactionContextTests.allTests),
+    testCase(ActiveTransactionContextNodeTests.allActiveTransactionContextNodeTests),
+    testCase(ActiveTransactionContextRootTests.allActiveTransactionContextRootTests),
+    testCase(ActiveTransactionContextTests.allActiveTransactionContextTests),
+    testCase(InactiveTransactionContextNodeTests.allInactiveTransactionContextNodeTests),
+    testCase(InactiveTransactionContextRootTests.allInactiveTransactionContextRootTests),
+    testCase(InactiveTransactionContextTests.allInactiveTransactionContextTests),
+    testCase(TransactionContextTests.allTransactionContextTests),
 ])

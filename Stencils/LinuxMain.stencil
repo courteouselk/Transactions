@@ -7,7 +7,7 @@ import XCTest
 
 extension {{ type.name }} {
 
-    public static var allTests: [(String, ({{ type.name }}) -> () throws -> Void)] {
+    public static var all{{ type.name }}: [(String, ({{ type.name }}) -> () throws -> Void)] {
         return [
 {% for method in type.methods %}{% if method.parameters.count == 0 and method.shortName|hasPrefix:"test" %}            ("{{ method.shortName }}", {{ method.shortName }}),
 {% endif %}{% endfor %}        ]
@@ -18,6 +18,6 @@ extension {{ type.name }} {
 // MARK: -{% endif %}{% endfor %} XCTMain
 
 XCTMain([
-{% for type in types.classes|based:"XCTestCase" %}{% if not type.annotations.disableTests %}    testCase({{ type.name }}.allTests),
+{% for type in types.classes|based:"XCTestCase" %}{% if not type.annotations.disableTests %}    testCase({{ type.name }}.all{{ type.name }}),
 {% endif %}{% endfor %}])
 // sourcery:end
