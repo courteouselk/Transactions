@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = "Transactions"
-    s.version      = "0.0.4"
+    s.version      = "0.0.5"
     s.summary      = "Make atomic changes to object hierarchies"
     s.description  = <<-DESC
                         Transactions framework facilitates making atomic changes to the model:
