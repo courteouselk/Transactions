@@ -1,5 +1,11 @@
 # Change Log
 
+## Unreleased
+
+### Miscellanneous
+
+- Convert to Swift 4
+
 ## [0.0.5](https://github.com/courteouselk/Transactions/compare/0.0.4...0.0.5)
 
 ### Miscellanneous
