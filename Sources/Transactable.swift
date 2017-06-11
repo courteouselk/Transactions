@@ -151,7 +151,7 @@ public extension Transactable {
     /// - throws: Any error that `executeTransaction`, `beginTransaction`, `commitTransaction`, or
     ///           `rollbackTransaction` might throw.
 
-    public func transaction<Result>(_ executeTransaction: (Void) throws -> Result) throws -> Result {
+    public func transaction<Result>(_ executeTransaction: () throws -> Result) throws -> Result {
         if transactionContext.transactionIsActive {
             return try executeTransaction()
         } else {
