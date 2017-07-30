@@ -6,6 +6,10 @@
 
 - Convert to Swift 4
 
+### API changes
+
+- Renamed `Transactable.transaction()` closure wrapper into `.doTransactinally()`.
+
 ## [0.0.5](https://github.com/courteouselk/Transactions/compare/0.0.4...0.0.5)
 
 ### Miscellanneous

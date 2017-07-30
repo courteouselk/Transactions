@@ -79,25 +79,25 @@ final class Book : Transactable, CustomStringConvertible {
     // MARK: -
 
     func doTransactionClosure() throws {
-        try transaction {
+        try doTransactionally {
             transactionClosureCount += 1
         }
     }
 
     func doNestingTranscationClosure() throws {
-        try transaction {
+        try doTransactionally {
             try doTransactionClosure()
         }
     }
 
     func doTransactionClosureThatThrows() throws {
-        try transaction {
+        try doTransactionally {
             throw LibraryError.someError
         }
     }
 
     func doNestingTranscationClosureThatThrows() throws {
-        try transaction {
+        try doTransactionally {
             try doTransactionClosureThatThrows()
         }
     }

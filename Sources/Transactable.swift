@@ -146,21 +146,21 @@ public extension Transactable {
     ///         transaction.
     ///
     /// - parameters:
-    ///   - executeTransaction: Closure that encapsulated the body of the transaction.
+    ///   - transactionBody: Closure that encapsulated the body of the transaction.
     ///
     /// - throws: Any error that `executeTransaction`, `beginTransaction`, `commitTransaction`, or
     ///           `rollbackTransaction` might throw.
 
-    public func transaction<Result>(_ executeTransaction: () throws -> Result) throws -> Result {
+    public func doTransactionally<Result>(_ transactionBody: () throws -> Result) throws -> Result {
         if transactionContext.transactionIsActive {
-            return try executeTransaction()
+            return try transactionBody()
         } else {
             try transactionContext.beginTransaction()
 
             let result: Result
 
             do {
-                result = try executeTransaction()
+                result = try transactionBody()
                 try transactionContext.commitTransaction()
             }
             catch {

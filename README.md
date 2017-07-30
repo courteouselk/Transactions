@@ -21,7 +21,43 @@
 
 This approach allows to encapsulate constraints checking and backup/restore operations within each individual class, thus placing related code together and making the whole logic clearer and easier to maintain.
 
-__Example:__
+## Summary (TL;DR)
+
+This will work fine (`chart1` object will have two elements that sum up to 100 percent in total):
+
+````swift
+let chart1 = PieChart()
+
+do {
+    try chart1.doTransactionally({
+        chart1.addElement(label: "Part #1", percentage: 25)
+        chart1.addElement(label: "Part #2", percentage: 75)
+    })
+} catch {
+    print(error)
+}
+
+for e in chart1.elements.values {
+    print("\(e.label), \(e.percentage)%")
+}
+````
+
+.. while this will throw an error while leaving the `chart2` without any elements added:
+
+````swift
+let chart2 = PieChart()
+
+do {
+    try chart2.doTransactionally({
+        chart2.addElement(label: "Part #1", percentage: 25)
+        chart2.addElement(label: "Part #2", percentage: 80)
+    })
+} catch {
+    print(error)
+}
+````
+
+## Details
 
 Let's have a pie-chart object that will contain some elements that represent percentages of the chart area.  Total sum of the percentages must always be 100, each percentage must be greater than zero and not greater than 100.
 
@@ -174,7 +210,7 @@ Finally, the way it could have been used in Swift Playground:
 let chart = PieChart()
 
 do {
-    try chart.transaction({
+    try chart.doTransactionally({
         chart.addElement(label: "Part #1", percentage: 50) // Try to change 50 to 60
         chart.addElement(label: "Part #2", percentage: 50)
     })
@@ -182,9 +218,9 @@ do {
     print(error)
 }
 
-chart.elements.values.forEach({
-    print("\($0.label), \($0.percentage)%")
-})
+for e in chart.elements.values {
+    print("\(e.label), \(e.percentage)%")
+}
 ````
 
 If you run the code above in a playground and change the percentages (make them too big, or negative, or not adding up to 100) then you will see that whenever any of the constraints is violated the transaction that made inconsistent changes is rolled back to the previous state (thus the model always remains consistent).
