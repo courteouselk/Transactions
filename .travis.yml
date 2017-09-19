@@ -1,0 +1,17 @@
+language: objective-c
+osx_image: xcode9
+xcode_project: Transactions.xcodeproj
+
+matrix:
+  include:
+  - env: Type=macOS
+    script: 
+      - xcodebuild clean build test
+          -scheme Transactions-macOS -destination "platform=macOS"
+  - env: Type=iOS
+    script: 
+      - xcodebuild clean build test
+          -scheme Transactions-iOS -destination "platform=iOS Simulator,name=iPad Pro (12.9-inch)" 
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
